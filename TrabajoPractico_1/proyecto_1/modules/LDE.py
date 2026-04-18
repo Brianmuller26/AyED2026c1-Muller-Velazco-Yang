@@ -1,3 +1,10 @@
+class Nodo:
+
+    def __init__(self,item):
+        self.__item = item
+        self.__siguiente = None
+        self.__anterior = None 
+
 class ListaDobleEnlazada:
     
     def __init__(self):
@@ -30,21 +37,29 @@ class ListaDobleEnlazada:
         self.__cola=item
     
     def agregar_al_inicio(self, item):
-        if self.__tamanio == 0:
-            self.__cabeza = item
-            self.__cola = item
+        nuevo_nodo = Nodo(item)
+        if self.cabeza is None:
+            self.__cabeza = nuevo_nodo
+            self.__cola = nuevo_nodo
         else:
-            cabeza_viejo = self.__cabeza
-            self.__cabeza = item
-            
+            nuevo_nodo.__siguiente = self.__cabeza
+            self.cabeza.__anterior = nuevo_nodo
+            self.__cabeza = nuevo_nodo
+        self.__tamanio += 1
+
     def agregar_al_final(self, item):
-        pass
+        nuevo_nodo = Nodo(item)
+        if self.cola is None:
+            self.__cabeza = nuevo_nodo
+            self.__cola = nuevo_nodo
+        else:
+            nuevo_nodo.__anterior = self.__cola
+            self.cola.__anterior = nuevo_nodo
+            self.__cola = nuevo_nodo
+        self.__tamanio += 1
 
 if __name__ == '__main__':
     item = "Ocupado"
     mi_lista = ListaDobleEnlazada()
     mi_lista.agregar_al_inicio(item)
     print(mi_lista.esta_vacia())
-        
-         
-    

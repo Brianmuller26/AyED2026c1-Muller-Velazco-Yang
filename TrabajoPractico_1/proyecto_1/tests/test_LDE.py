@@ -12,24 +12,24 @@ import random
 class Test_LDE(unittest.TestCase):
     """Test de la clase ListaDobleEnlazada"""
 
-    def setUp(self):
-        self.n_elementos = 200
-        """ LDE vacía """
-        self.lde_1 = ListaDobleEnlazada()
+#     def setUp(self):
+#         self.n_elementos = 200
+#         """ LDE vacía """
+#         self.lde_1 = ListaDobleEnlazada()
 
-        """ LDE con elementos repetidos con lista auxiliar"""
-        self.lde_2 = ListaDobleEnlazada()
-        self.lista_aux_2 = random.choices(range(-self.n_elementos // 2, self.n_elementos // 2), k=self.n_elementos)
-        for item in self.lista_aux_2:
-            self.lde_2.agregar_al_final(item)
+#         """ LDE con elementos repetidos con lista auxiliar"""
+#         self.lde_2 = ListaDobleEnlazada()
+#         self.lista_aux_2 = random.choices(range(-self.n_elementos // 2, self.n_elementos // 2), k=self.n_elementos)
+#         for item in self.lista_aux_2:
+#             self.lde_2.agregar_al_final(item)
 
-        """LDE de elementos no repetidos con lista auxiliar"""
-        self.lde_3 = ListaDobleEnlazada()
-        self.lista_aux_3 = random.sample(range(-self.n_elementos, self.n_elementos), self.n_elementos)
-        for item in self.lista_aux_3:
-            self.lde_3.agregar_al_final(item)
+#         """LDE de elementos no repetidos con lista auxiliar"""
+#         self.lde_3 = ListaDobleEnlazada()
+#         self.lista_aux_3 = random.sample(range(-self.n_elementos, self.n_elementos), self.n_elementos)
+#         for item in self.lista_aux_3:
+#             self.lde_3.agregar_al_final(item)
 
-        self.posicion = random.randint(1, self.n_elementos - 1)  # randint incluye el extremo
+#         self.posicion = random.randint(1, self.n_elementos - 1)  # randint incluye el extremo
 
 #     def recorrer_lista(self, lista):
 #         """
@@ -67,8 +67,8 @@ class Test_LDE(unittest.TestCase):
 #                              "a que si la recorremos de adelante para atrás.")
 #             nodo = nodo.anterior
         
-# # ----------------------------------------------------------------------------------------------------------------------------------
-# # ----------------------------------------------------------------------------------------------------------------------------------
+# # #------------------------------------------------------------------------------------------------------------------------------
+# # # ----------------------------------------------------------------------------------------------------------------------------------
 
 #     def test_agregar_al_inicio(self):
 #         """
