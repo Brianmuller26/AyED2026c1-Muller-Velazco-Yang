@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """
 Created on Thu Sep  1 14:00:21 2022
 @author: Catedra de Algoritmos y Estructura de Datos
@@ -12,24 +12,24 @@ import random
 class Test_LDE(unittest.TestCase):
     """Test de la clase ListaDobleEnlazada"""
 
-#     def setUp(self):
-#         self.n_elementos = 200
-#         """ LDE vacía """
-#         self.lde_1 = ListaDobleEnlazada()
+    def setUp(self):
+        self.n_elementos = 200
+        """ LDE vacía """
+        self.lde_1 = ListaDobleEnlazada()
 
-#         """ LDE con elementos repetidos con lista auxiliar"""
-#         self.lde_2 = ListaDobleEnlazada()
-#         self.lista_aux_2 = random.choices(range(-self.n_elementos // 2, self.n_elementos // 2), k=self.n_elementos)
-#         for item in self.lista_aux_2:
-#             self.lde_2.agregar_al_final(item)
+        """ LDE con elementos repetidos con lista auxiliar"""
+        self.lde_2 = ListaDobleEnlazada()
+        self.lista_aux_2 = random.choices(range(-self.n_elementos // 2, self.n_elementos // 2), k=self.n_elementos)
+        for item in self.lista_aux_2:
+            self.lde_2.agregar_al_final(item)
 
-#         """LDE de elementos no repetidos con lista auxiliar"""
-#         self.lde_3 = ListaDobleEnlazada()
-#         self.lista_aux_3 = random.sample(range(-self.n_elementos, self.n_elementos), self.n_elementos)
-#         for item in self.lista_aux_3:
-#             self.lde_3.agregar_al_final(item)
+        """LDE de elementos no repetidos con lista auxiliar"""
+        self.lde_3 = ListaDobleEnlazada()
+        self.lista_aux_3 = random.sample(range(-self.n_elementos, self.n_elementos), self.n_elementos)
+        for item in self.lista_aux_3:
+            self.lde_3.agregar_al_final(item)
 
-#         self.posicion = random.randint(1, self.n_elementos - 1)  # randint incluye el extremo
+        self.posicion = random.randint(1, self.n_elementos - 1)  # randint incluye el extremo
 
 #     def recorrer_lista(self, lista):
 #         """
@@ -38,7 +38,7 @@ class Test_LDE(unittest.TestCase):
 #         esten bien enlazados entre sí (forward y backward).
 #         """
 
-#         # Recorro de adelante para atras
+#         Recorro de adelante para atras
 #         nodo = lista.cabeza
 #         counter = 0
 #         elementos = []
@@ -54,7 +54,7 @@ class Test_LDE(unittest.TestCase):
 #         self.assertEqual(len(lista), counter,
 #                          "Tamaño informado por la lista no coincide con la cantidad de nodos en la misma.")
 
-#         # Recorro de atras para adelante
+#         Recorro de atras para adelante
 #         nodo = lista.cola
 
 #         self.assertIsNone(nodo.siguiente,
@@ -67,8 +67,8 @@ class Test_LDE(unittest.TestCase):
 #                              "a que si la recorremos de adelante para atrás.")
 #             nodo = nodo.anterior
         
-# # #------------------------------------------------------------------------------------------------------------------------------
-# # # ----------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------------
 
 #     def test_agregar_al_inicio(self):
 #         """
@@ -77,7 +77,7 @@ class Test_LDE(unittest.TestCase):
 #         """
 #         valorNuevo = 25
 
-#         # Agregar al inicio de lista no vacia
+#         Agregar al inicio de lista no vacia
 #         lde2_copia = self.lde_2.copiar()
 #         lde2_copia.agregar_al_inicio(valorNuevo)
 
@@ -97,7 +97,7 @@ class Test_LDE(unittest.TestCase):
 #             nodo_original = nodo_original.siguiente
 #             nodo_copia = nodo_copia.siguiente
 
-#         # Anexar en lista vacia (self.lde_1)
+#         Anexar en lista vacia (self.lde_1)
 #         lde1_copia = self.lde_1.copiar()
 #         lde1_copia.agregar_al_inicio(valorNuevo)
 
@@ -118,7 +118,7 @@ class Test_LDE(unittest.TestCase):
 
 #         valorNuevo = 25
 
-#         # Anexar en lista no vacia
+#         Anexar en lista no vacia
 #         lde2_copia = self.lde_2.copiar()
 #         lde2_copia.agregar_al_final(valorNuevo)
 
@@ -140,7 +140,7 @@ class Test_LDE(unittest.TestCase):
 #         self.assertIs(nodo_copia, lde2_copia.cola,
 #                       "El ultimo nodo no coincide con la refencia a la cola de la lista")
 
-#         # Anexar en lista vacia (self.lde_1)
+#         Anexar en lista vacia (self.lde_1)
 #         lde1_copia = self.lde_1.copiar()
 #         lde1_copia.agregar_al_final(valorNuevo)
 
@@ -183,7 +183,7 @@ class Test_LDE(unittest.TestCase):
 #         pruebo insertar un ítem en una posición aleatoria
 #         de la LDE y compruebo que el elemento es insertado
 #         """
-#         # print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
+#         print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
 #         posicion = random.randint(1, self.n_elementos - 1)
 
 #         self.lde_2.insertar(250, posicion)
@@ -216,36 +216,36 @@ class Test_LDE(unittest.TestCase):
 #         con/sin parámetro, verifico el valor extraído y el tamaño
 #         resultante de la LDE
 #         """
-#         # Extraer al inicio
+#         Extraer al inicio
 #         self.assertEqual(self.lde_3.extraer(0), self.lista_aux_3.pop(0),
 #                          "No se extrajo correctamente los elementos de la lista")
 #         self.assertEqual(len(self.lde_3), self.n_elementos - 1,
 #                          "No se actualizo debidamente el tamaño de la lista luego de extraer")
-#         # Verificamos que la lista este correctamente enlazada
+#         Verificamos que la lista este correctamente enlazada
 #         self.recorrer_lista(self.lde_3)
 
-#         # Extraer al final sin parámetro
+#         Extraer al final sin parámetro
 #         self.assertEqual(self.lde_3.extraer(), self.lista_aux_3.pop(),
 #                          "Cuando no se pasa argumento, se debe extraer el ultimo elemento de la lista")
 #         self.assertEqual(len(self.lde_3), self.n_elementos - 2,
 #                          "No se actualizo debidamente el tamaño de la lista luego de extraer")
-#         # Verificamos que la lista este correctamente enlazada
+#         Verificamos que la lista este correctamente enlazada
 #         self.recorrer_lista(self.lde_3)
 
-#         # Extraer al final usando parámetro
+#         Extraer al final usando parámetro
 #         self.assertEqual(self.lde_3.extraer(len(self.lde_3) - 1), self.lista_aux_3.pop(),
 #                          "No se extrajo correctamente los elementos de la lista")
 #         self.assertEqual(self.lde_3.tamanio, self.n_elementos - 3,
 #                          "No se actualizo debidamente el tamaño de la lista luego de extraer")
-#         # Verificamos que la lista este correctamente enlazada
+#         Verificamos que la lista este correctamente enlazada
 #         self.recorrer_lista(self.lde_3)
 
-#         # Extraer al final parámetro -1
+#         Extraer al final parámetro -1
 #         self.assertEqual(self.lde_3.extraer(-1), self.lista_aux_3.pop(),
 #                          "No se extrajo correctamente los elementos de la lista")
 #         self.assertEqual(self.lde_3.tamanio, self.n_elementos - 4,
 #                          "No se actualizo debidamente el tamaño de la lista luego de extraer")
-#         # Verificamos que la lista este correctamente enlazada
+#         Verificamos que la lista este correctamente enlazada
 #         self.recorrer_lista(self.lde_3)
 
 #     def test_extraer_interior(self):
@@ -259,11 +259,11 @@ class Test_LDE(unittest.TestCase):
 
 #         item = lde3_copia.extraer(posicion)
 
-#         # Verifico tamaño
+#         Verifico tamaño
 #         self.assertEqual(len(lde3_copia), len(self.lde_3) - 1,
 #                          "No se modifico correctamente el tamaño de la lista luego de la extracción")
 
-#         # Verifico que este correctamente enlazada
+#         Verifico que este correctamente enlazada
 #         self.recorrer_lista(lde3_copia)
 
 #         nodo_original = self.lde_3.cabeza
@@ -285,7 +285,7 @@ class Test_LDE(unittest.TestCase):
 #         pruebo extraer en una lista vacía y en posiciones fuera
 #         de los límites de la LDE. Compruebo las excepciones
 #         """
-#         # LDE vacía
+#         LDE vacía
 #         self.assertRaises(Exception, self.lde_1.extraer,
 #                           "Extraer de una lista vacia deberia arrojar un error")
 #         self.assertRaises(Exception, self.lde_1.extraer, 0,
@@ -299,7 +299,7 @@ class Test_LDE(unittest.TestCase):
 #         self.assertRaises(Exception, self.lde_1.extraer, -(self.n_elementos + 10),
 #                           "Extraer de una lista vacia deberia arrojar un error")
 
-#         # LDE no vacia
+#         LDE no vacia
 #         self.assertRaises(Exception, self.lde_2.extraer, -50,
 #                           "Extraer de una posicion negativa dede arrojar error")
 #         self.assertRaises(Exception, self.lde_2.extraer, self.n_elementos + 50,
@@ -319,26 +319,26 @@ class Test_LDE(unittest.TestCase):
 #         """
 #         lde_3_copia = self.lde_3.copiar()
 
-#         # Compruebo la integridad fisica de la lista original
+#         Compruebo la integridad fisica de la lista original
 #         self.recorrer_lista(self.lde_3)
-#         # Compruebo que la lista copiada este correctamente enlazada
+#         Compruebo que la lista copiada este correctamente enlazada
 #         self.recorrer_lista(lde_3_copia)
 
 #         nodo_original = self.lde_3.cabeza
 #         nodo_copia = lde_3_copia.cabeza
 
-#         # Compruebo longitud de las listas
+#         Compruebo longitud de las listas
 #         self.assertEqual(len(lde_3_copia), len(self.lde_3),
 #                          "Los tamaños de las listas copiadas nos son las mismas.")
-#         # Compruebo que las listas sean instancias diferentes
+#         Compruebo que las listas sean instancias diferentes
 #         self.assertIsNot(lde_3_copia, self.lde_3,
 #                          "Las listas copiadas son referencias al mismo espacio de memoria.")
 
 #         while nodo_original or nodo_copia:
-#             # Compruebo igualdad del contenido de ambas listas
+#             Compruebo igualdad del contenido de ambas listas
 #             self.assertEqual(nodo_original.dato, nodo_copia.dato,
 #                              "Los datos de la lista copiada no son iguales a los de la lista original")
-#             # Compruebo que los nodos de ambas listas sean instancias diferentes
+#             Compruebo que los nodos de ambas listas sean instancias diferentes
 #             self.assertIsNot(nodo_original, nodo_copia,
 #                              "Los nodos de las lista copiada son compartidos con los de la lista original")
 #             nodo_original = nodo_original.siguiente
@@ -361,7 +361,7 @@ class Test_LDE(unittest.TestCase):
 #         lista_copia = self.lde_1.copiar()
 #         self.lde_1.invertir()
 
-#         # Verifico que sus elementos esten correctamente enlazados
+#         Verifico que sus elementos esten correctamente enlazados
 #         self.recorrer_lista(self.lde_1)
 
 #         nodo_invertido = lista_copia.cabeza
@@ -369,9 +369,9 @@ class Test_LDE(unittest.TestCase):
 
 #         for _ in range(self.n_elementos):
 #             self.assertEqual(nodo_invertido.dato, nodo_original.dato)
-#             # Avanzo al siguiente nodo de lista invertida
+#             Avanzo al siguiente nodo de lista invertida
 #             nodo_invertido = nodo_invertido.siguiente
-#             # Avanzo al siguiente nodo de lista original
+#             Avanzo al siguiente nodo de lista original
 #             nodo_original = nodo_original.anterior
 
 #     def test_metodo_concatenar(self):
@@ -382,15 +382,15 @@ class Test_LDE(unittest.TestCase):
 #         lista_concatenada1 = self.lde_3.copiar()
 #         lista_concatenada1.concatenar(self.lde_2)
 
-#         # Compruebo que las listas originales esten intactas
+#         Compruebo que las listas originales esten intactas
 #         self.recorrer_lista(self.lde_3)
 #         self.recorrer_lista(self.lde_2)
 
-#         # Compruebo que la lista concatenada este bien enlazada
+#         Compruebo que la lista concatenada este bien enlazada
 #         self.recorrer_lista(lista_concatenada1)
 
-#         # Verifico que los elementos resulten efectivamente de la concatenacion
-#         # en orden de la lista lde_3 con lde_2
+#         Verifico que los elementos resulten efectivamente de la concatenacion
+#         en orden de la lista lde_3 con lde_2
 #         nodo_original = self.lde_3.cabeza
 #         nodo_concat = lista_concatenada1.cabeza
 #         while nodo_original is not None:
@@ -413,18 +413,18 @@ class Test_LDE(unittest.TestCase):
 #         dos LDE que recibe como operandos. Internamente no modifica ninguno
 #         de sus dos operandos.
 #         """
-#         # lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
+#         lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
 #         lista_concatenada1 = self.lde_3 + self.lde_2
 
-#         # Compruebo que las listas originales esten intactas
+#         Compruebo que las listas originales esten intactas
 #         self.recorrer_lista(self.lde_3)
 #         self.recorrer_lista(self.lde_2)
 
-#         # Compruebo que la lista concatenada este bien enlazada
+#         Compruebo que la lista concatenada este bien enlazada
 #         self.recorrer_lista(lista_concatenada1)
 
-#         # Verifico que los elementos resulten efectivamente de la concatenacion
-#         # en orden de la lista lde_3 con lde_2
+#         Verifico que los elementos resulten efectivamente de la concatenacion
+#         en orden de la lista lde_3 con lde_2
 #         nodo_original = self.lde_3.cabeza
 #         nodo_concat = lista_concatenada1.cabeza
 #         while nodo_original is not None:

@@ -1,9 +1,9 @@
 class Nodo:
 
-    def __init__(self,item):
-        self.__item = item
-        self.__siguiente = None
-        self.__anterior = None 
+    def __init__(self,dato):
+        self.dato = dato
+        self.siguiente = None
+        self.anterior = None 
 
 class ListaDobleEnlazada:
     
@@ -25,41 +25,45 @@ class ListaDobleEnlazada:
         return self.__tamanio
     
     def esta_vacia(self):
-        if self.__tamanio is None:
-            return True
+        return self.__tamanio == 0
 
     @cabeza.setter
-    def cabeza(self,item):
-        self.__cabeza=item
+    def cabeza(self,dato):
+        self.__cabeza = dato
     
     @cola.setter
-    def cola(self,item):
-        self.__cola=item
+    def cola(self,dato):
+        self.__cola = dato
     
-    def agregar_al_inicio(self, item):
-        nuevo_nodo = Nodo(item)
+    def agregar_al_inicio(self, dato):
+        
+        nuevo_nodo = Nodo(dato)
         if self.cabeza is None:
             self.__cabeza = nuevo_nodo
             self.__cola = nuevo_nodo
         else:
-            nuevo_nodo.__siguiente = self.__cabeza
-            self.cabeza.__anterior = nuevo_nodo
+            nuevo_nodo.siguiente = self.__cabeza
+            self.__cabeza.anterior = nuevo_nodo
             self.__cabeza = nuevo_nodo
         self.__tamanio += 1
 
-    def agregar_al_final(self, item):
-        nuevo_nodo = Nodo(item)
+    def agregar_al_final(self, dato):
+        
+        nuevo_nodo = Nodo(dato)
         if self.cola is None:
             self.__cabeza = nuevo_nodo
             self.__cola = nuevo_nodo
         else:
-            nuevo_nodo.__anterior = self.__cola
-            self.cola.__anterior = nuevo_nodo
+            nuevo_nodo.anterior = self.__cola
+            self.__cola.siguiente = nuevo_nodo
             self.__cola = nuevo_nodo
         self.__tamanio += 1
 
 if __name__ == '__main__':
-    item = "Ocupado"
     mi_lista = ListaDobleEnlazada()
+    print("Vacía: ", mi_lista.esta_vacia())
+
+    item = "Ocupado"
+    
     mi_lista.agregar_al_inicio(item)
-    print(mi_lista.esta_vacia())
+    print("Con ítem: ", mi_lista.esta_vacia())
