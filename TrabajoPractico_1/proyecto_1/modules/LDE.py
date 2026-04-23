@@ -38,6 +38,10 @@ class ListaDobleEnlazada:
     def cola(self,item):
         self.__cola = item
     
+    @tamanio.setter
+    def tamanio(self, tamanio):
+        self.__tamanio = tamanio
+        
     def agregar_al_inicio(self, item):
         
         nuevo_nodo = Nodo(item)
@@ -116,4 +120,3 @@ class ListaDobleEnlazada:
     def __iter__(self):
         pass
 
-    

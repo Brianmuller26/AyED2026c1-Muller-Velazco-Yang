@@ -111,105 +111,105 @@ class Test_LDE(unittest.TestCase):
         self.assertIs(lde1_copia.cabeza, lde1_copia.cola,
                       "En una lista de un elemento, la cabeza es la misma que la cola")
 
-    # def test_agregar_al_final(self):
-    #     """
-    #     pruebo que al anexar elementos al final de la lista
-    #     la misma tiene tamaño correcto y se llena correctamente
-    #     """
+    def test_agregar_al_final(self):
+        """
+        pruebo que al anexar elementos al final de la lista
+        la misma tiene tamaño correcto y se llena correctamente
+        """
 
-    #     valorNuevo = 25
+        valorNuevo = 25
 
-    #     # Anexar en lista no vacia
-    #     lde2_copia = self.lde_2.copiar()
-    #     lde2_copia.agregar_al_final(valorNuevo)
+        # Anexar en lista no vacia
+        lde2_copia = self.lde_2.copiar()
+        lde2_copia.agregar_al_final(valorNuevo)
 
-    #     self.recorrer_lista(lde2_copia)
-    #     self.assertEqual(len(self.lde_2), len(lde2_copia) - 1,
-    #                      "El tamaño de la lista luego de anexar debe incrementarse en uno")
+        self.recorrer_lista(lde2_copia)
+        self.assertEqual(len(self.lde_2), len(lde2_copia) - 1,
+                         "El tamaño de la lista luego de anexar debe incrementarse en uno")
 
-    #     nodo_original = self.lde_2.cabeza
-    #     nodo_copia = lde2_copia.cabeza
-    #     while nodo_original.siguiente is not None:
-    #         self.assertEqual(nodo_original.dato, nodo_copia.dato,
-    #                          "Se modificaron los datos de la lista luego de anexar el nuevo elemento")
-    #         nodo_original = nodo_original.siguiente
-    #         nodo_copia = nodo_copia.siguiente
+        nodo_original = self.lde_2.cabeza
+        nodo_copia = lde2_copia.cabeza
+        while nodo_original.siguiente is not None:
+            self.assertEqual(nodo_original.dato, nodo_copia.dato,
+                             "Se modificaron los datos de la lista luego de anexar el nuevo elemento")
+            nodo_original = nodo_original.siguiente
+            nodo_copia = nodo_copia.siguiente
 
-    #     nodo_copia = nodo_copia.siguiente
-    #     self.assertEqual(nodo_copia.dato, valorNuevo,
-    #                      "El ultimo nodo no contiene el valor que se solicito agregar")
-    #     self.assertIs(nodo_copia, lde2_copia.cola,
-    #                   "El ultimo nodo no coincide con la refencia a la cola de la lista")
+        nodo_copia = nodo_copia.siguiente
+        self.assertEqual(nodo_copia.dato, valorNuevo,
+                         "El ultimo nodo no contiene el valor que se solicito agregar")
+        self.assertIs(nodo_copia, lde2_copia.cola,
+                      "El ultimo nodo no coincide con la refencia a la cola de la lista")
 
-    #     # Anexar en lista vacia (self.lde_1)
-    #     lde1_copia = self.lde_1.copiar()
-    #     lde1_copia.agregar_al_final(valorNuevo)
+        # Anexar en lista vacia (self.lde_1)
+        lde1_copia = self.lde_1.copiar()
+        lde1_copia.agregar_al_final(valorNuevo)
 
-    #     self.recorrer_lista(lde1_copia)
-    #     self.assertEqual(len(lde1_copia), 1,
-    #                      "Al anexar un elemento en una lista vacia, su nuevo tamaño debe ser uno")
+        self.recorrer_lista(lde1_copia)
+        self.assertEqual(len(lde1_copia), 1,
+                         "Al anexar un elemento en una lista vacia, su nuevo tamaño debe ser uno")
 
-    #     self.assertEqual(lde1_copia.cabeza.dato, valorNuevo,
-    #                      "El nodo anexado a la lista vacia no contiene el valor que se solicito agregar")
-    #     self.assertIs(lde1_copia.cabeza, lde1_copia.cola,
-    #                   "En una lista de un elemento, la cabeza es la misma que la cola")
+        self.assertEqual(lde1_copia.cabeza.dato, valorNuevo,
+                         "El nodo anexado a la lista vacia no contiene el valor que se solicito agregar")
+        self.assertIs(lde1_copia.cabeza, lde1_copia.cola,
+                      "En una lista de un elemento, la cabeza es la misma que la cola")
 
-    # def test_insertar_extremos(self):
-    #     """
-    #     inserto ítems en los extremos de la LDE, compruebo
-    #     tamaño correcto y su valor.
-    #     """
+    def test_insertar_extremos(self):
+        """
+        inserto ítems en los extremos de la LDE, compruebo
+        tamaño correcto y su valor.
+        """
 
-    #     """inserto 1er item al inicio"""
-    #     self.lde_2.insertar(120, 0)
-    #     self.n_elementos += 1
-    #     self.assertEqual(len(self.lde_2), self.n_elementos)
-    #     self.assertEqual(self.lde_2.cabeza.dato, 120)
+        """inserto 1er item al inicio"""
+        self.lde_2.insertar(120, 0)
+        self.n_elementos += 1
+        self.assertEqual(len(self.lde_2), self.n_elementos)
+        self.assertEqual(self.lde_2.cabeza.dato, 120)
 
-    #     """inserto 2do item en la última posición"""
-    #     self.lde_2.insertar(180, len(self.lde_2) - 1)
-    #     self.n_elementos += 1
-    #     self.assertEqual(len(self.lde_2), self.n_elementos)
-    #     nodo_actual = self.lde_2.cabeza
-    #     nodo_anterior = None
-    #     valor = None
-    #     while nodo_actual.siguiente:
-    #         nodo_anterior = nodo_actual
-    #         nodo_actual = nodo_actual.siguiente
-    #         valor = nodo_anterior.dato
-    #     self.assertEqual(valor, 180)
+        """inserto 2do item en la última posición"""
+        self.lde_2.insertar(180, len(self.lde_2) - 1)
+        self.n_elementos += 1
+        self.assertEqual(len(self.lde_2), self.n_elementos)
+        nodo_actual = self.lde_2.cabeza
+        nodo_anterior = None
+        valor = None
+        while nodo_actual.siguiente:
+            nodo_anterior = nodo_actual
+            nodo_actual = nodo_actual.siguiente
+            valor = nodo_anterior.dato
+        self.assertEqual(valor, 180)
 
-    # def test_insertar_interior(self):
-    #     """
-    #     pruebo insertar un ítem en una posición aleatoria
-    #     de la LDE y compruebo que el elemento es insertado
-    #     """
-    #     print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
-    #     posicion = random.randint(1, self.n_elementos - 1)
+    def test_insertar_interior(self):
+        """
+        pruebo insertar un ítem en una posición aleatoria
+        de la LDE y compruebo que el elemento es insertado
+        """
+        print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
+        posicion = random.randint(1, self.n_elementos - 1)
 
-    #     self.lde_2.insertar(250, posicion)
-    #     self.n_elementos += 1
-    #     self.assertEqual(self.lde_2.tamanio, self.n_elementos)
+        self.lde_2.insertar(250, posicion)
+        self.n_elementos += 1
+        self.assertEqual(self.lde_2.tamanio, self.n_elementos)
 
-    #     contador = 0
-    #     nodo_actual = self.lde_2.cabeza
-    #     valor = None
-    #     while nodo_actual and contador != posicion:
-    #         contador += 1
-    #         nodo_actual = nodo_actual.siguiente
-    #         valor = nodo_actual.dato
+        contador = 0
+        nodo_actual = self.lde_2.cabeza
+        valor = None
+        while nodo_actual and contador != posicion:
+            contador += 1
+            nodo_actual = nodo_actual.siguiente
+            valor = nodo_actual.dato
 
-    #     self.assertEqual(valor, 250)
+        self.assertEqual(valor, 250)
 
-    # def test_excepciones_insertar(self):
-    #     """
-    #     intento insertar en posiciones incorrectas o no existentes de
-    #     la LDE y compruebo que se lanzan las excepciones correspondientes
-    #     """
-    #     self.assertRaises(Exception, self.lde_2.insertar, 210, -10,
-    #                       "La LDE debe arrojar excepcion al intentar insertar en posición negativa")
-    #     self.assertRaises(Exception, self.lde_2.insertar, 210, self.n_elementos + 10,
-    #                       "La LDE debe arrojar excepcion al intentar insertar en posición mayor al tamaño")
+    def test_excepciones_insertar(self):
+        """
+        intento insertar en posiciones incorrectas o no existentes de
+        la LDE y compruebo que se lanzan las excepciones correspondientes
+        """
+        self.assertRaises(Exception, self.lde_2.insertar, 210, -10,
+                          "La LDE debe arrojar excepcion al intentar insertar en posición negativa")
+        self.assertRaises(Exception, self.lde_2.insertar, 210, self.n_elementos + 10,
+                          "La LDE debe arrojar excepcion al intentar insertar en posición mayor al tamaño")
 
 #     def test_extraer_extremos(self):
 #         """
