@@ -1,6 +1,6 @@
 class Nodo:
 
-    def __init__(self,dato):
+    def __init__(self, dato):
         self.dato = dato
         self.siguiente = None
         self.anterior = None 
@@ -25,19 +25,22 @@ class ListaDobleEnlazada:
         return self.__tamanio
     
     def esta_vacia(self):
-        return self.__tamanio == 0
+        if self.__tamanio == 0:
+            return True
+        else:
+            return False
 
     @cabeza.setter
-    def cabeza(self,dato):
-        self.__cabeza = dato
+    def cabeza(self,item):
+        self.__cabeza = item
     
     @cola.setter
-    def cola(self,dato):
-        self.__cola = dato
+    def cola(self,item):
+        self.__cola = item
     
-    def agregar_al_inicio(self, dato):
+    def agregar_al_inicio(self, item):
         
-        nuevo_nodo = Nodo(dato)
+        nuevo_nodo = Nodo(item)
         if self.cabeza is None:
             self.__cabeza = nuevo_nodo
             self.__cola = nuevo_nodo
@@ -47,9 +50,9 @@ class ListaDobleEnlazada:
             self.__cabeza = nuevo_nodo
         self.__tamanio += 1
 
-    def agregar_al_final(self, dato):
+    def agregar_al_final(self, item):
         
-        nuevo_nodo = Nodo(dato)
+        nuevo_nodo = Nodo(item)
         if self.cola is None:
             self.__cabeza = nuevo_nodo
             self.__cola = nuevo_nodo
@@ -59,11 +62,58 @@ class ListaDobleEnlazada:
             self.__cola = nuevo_nodo
         self.__tamanio += 1
 
-if __name__ == '__main__':
-    mi_lista = ListaDobleEnlazada()
-    print("Vacía: ", mi_lista.esta_vacia())
+    def insertar(self, item, posicion):
 
-    item = "Ocupado"
+        if posicion < 0 or posicion > self.tamanio:
+            raise Exception("Posición inválida")
+        
+        if posicion == 0:
+            self.agregar_al_inicio(item)
+
+        elif posicion == self.tamanio:
+            self.agregar_al_final(item)
+        
+        else:
+            nuevo_nodo = Nodo(item)
+            actual = self.cabeza
+
+            for _ in range(posicion):
+                actual = actual.siguiente
+
+            nuevo_nodo.anterior = actual.anterior
+            nuevo_nodo.siguiente = actual
+            actual.anterior.siguiente = nuevo_nodo
+            actual.anterior = nuevo_nodo
+
+            self.tamanio += 1
     
-    mi_lista.agregar_al_inicio(item)
-    print("Con ítem: ", mi_lista.esta_vacia())
+    def extraer(self, posicion):
+        pass
+
+    def copiar(self):
+        copia = ListaDobleEnlazada()
+        actual = self.cabeza
+
+        while actual is not None:
+            copia.agregar_al_final(actual.dato)
+            actual = actual.siguiente
+        
+        return copia
+    
+    def invertir(self):
+        pass
+
+    def concatenar(self, Lista):
+        pass
+
+
+    def __len__(self):
+        return self.__tamanio
+
+    def __add__(self, Lista):
+        pass
+
+    def __iter__(self):
+        pass
+
+    
