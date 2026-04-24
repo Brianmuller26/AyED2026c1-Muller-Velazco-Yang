@@ -3,13 +3,14 @@ class Nodo:
     def __init__(self, dato):
         self.dato = dato
         self.siguiente = None
-        self.anterior = None 
+        self.anterior = None
 
 class ListaDobleEnlazada:
     
     def __init__(self):
         self.__cabeza = None
         self.__cola = None
+        self.__nodo = None
         self.__tamanio = 0
 
     @property
@@ -19,6 +20,10 @@ class ListaDobleEnlazada:
     @property
     def cola(self):
         return self.__cola
+    
+    @property
+    def nodo(self):
+        return self.__nodo
     
     @property
     def tamanio(self):
@@ -33,15 +38,25 @@ class ListaDobleEnlazada:
     @cabeza.setter
     def cabeza(self,item):
         self.__cabeza = item
+        self.anterior = None
+        self.siguiente = None
     
     @cola.setter
     def cola(self,item):
         self.__cola = item
+        self.anterior = None
+        self.siguiente = None
+
+    @nodo.setter
+    def nodo(self,item,posicion):
+        self.__nodo = item
+        self.anterior = None
+        self.siguiente = None
     
     @tamanio.setter
     def tamanio(self, tamanio):
         self.__tamanio = tamanio
-        
+
     def agregar_al_inicio(self, item):
         
         nuevo_nodo = Nodo(item)
@@ -91,9 +106,46 @@ class ListaDobleEnlazada:
 
             self.tamanio += 1
     
-    def extraer(self, posicion):
-        pass
+    def extraer(self, posicion = None): 
 
+        if self.__cabeza == None and self.__cola == None:
+            raise Exception("Lista Vacia")       
+        
+        if posicion == 0:
+            dato = self.__cabeza.dato
+            self.__cabeza = self.__cabeza.siguiente
+
+            if self.__cabeza is not None:
+                self.__cabeza.anterior = None
+            
+            else:
+                self.__cola = None
+
+            self.__tamanio -= 1    
+            return dato
+
+        if posicion is None or posicion == self.__tamanio - 1 or posicion == -1:
+
+            posicion == self.__tamanio - 1
+            dato = self.__cola.dato
+            self.__cola = self.__cola.anterior
+
+            if self.__cola is not None:
+                self.__cola.siguiente = None
+                
+            else:
+                self.__cabeza = None
+                
+            self.__tamanio -= 1    
+            return dato 
+
+        
+        if posicion != 0 and posicion != self.__tamanio:
+            pass
+
+        if posicion < 0 or posicion > self.__tamanio:
+            raise Exception("Posición inválida")
+    
     def copiar(self):
         copia = ListaDobleEnlazada()
         actual = self.cabeza
@@ -105,18 +157,35 @@ class ListaDobleEnlazada:
         return copia
     
     def invertir(self):
-        pass
+
+        actual = self.__cabeza
+
+        # Intercambia siguiente y anterior
+        while actual is not None:
+
+            actual.siguiente, actual.anterior = (
+                actual.anterior,
+                actual.siguiente
+            )
+
+            actual = actual.anterior
+
+        # Intercambiar cabeza y cola
+        self.__cabeza, self.__cola = self.__cola, self.__cabeza
 
     def concatenar(self, Lista):
         pass
 
-
     def __len__(self):
         return self.__tamanio
 
-    def __add__(self, Lista):
+    def __add__(self, lista):
         pass
 
     def __iter__(self):
-        pass
+        actual = self.__cabeza
+        while actual is not None:
+            yield actual.dato
+            actual = actual.siguiente
+    
 
