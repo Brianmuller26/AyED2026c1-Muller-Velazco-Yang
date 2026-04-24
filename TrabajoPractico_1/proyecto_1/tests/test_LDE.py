@@ -249,37 +249,37 @@ class Test_LDE(unittest.TestCase):
         # Verificamos que la lista este correctamente enlazada
         self.recorrer_lista(self.lde_3)
 
-    # def test_extraer_interior(self):
-    #     """
-    #     extraigo un elemento de una posición aleatoria de la lista
-    #     con elementos no repetidos y compruebo que el mismo no permanece
-    #     en la lista
-    #     """
-    #     posicion = random.randint(1, self.n_elementos - 1)
-    #     lde3_copia = self.lde_3.copiar()
+    def test_extraer_interior(self):
+        """
+        extraigo un elemento de una posición aleatoria de la lista
+        con elementos no repetidos y compruebo que el mismo no permanece
+        en la lista
+        """
+        posicion = random.randint(1, self.n_elementos - 1)
+        lde3_copia = self.lde_3.copiar()
 
-    #     item = lde3_copia.extraer(posicion)
+        item = lde3_copia.extraer(posicion)
 
-    #     # Verifico tamaño
-    #     self.assertEqual(len(lde3_copia), len(self.lde_3) - 1,
-    #                      "No se modifico correctamente el tamaño de la lista luego de la extracción")
+        # Verifico tamaño
+        self.assertEqual(len(lde3_copia), len(self.lde_3) - 1,
+                         "No se modifico correctamente el tamaño de la lista luego de la extracción")
 
-    #     # Verifico que este correctamente enlazada
-    #     self.recorrer_lista(lde3_copia)
+        # Verifico que este correctamente enlazada
+        self.recorrer_lista(lde3_copia)
 
-    #     nodo_original = self.lde_3.cabeza
-    #     nodo_copia = lde3_copia.cabeza
-    #     contador_pos = 0
-    #     while nodo_original is not None:
-    #         if contador_pos == posicion:
-    #             self.assertEqual(nodo_original.dato, item,
-    #                              "El elemento extraido no coincide con el elemento originariamente en la posicion solicitada")
-    #             nodo_original = nodo_original.siguiente
-    #         self.assertEqual(nodo_original.dato, nodo_copia.dato,
-    #                          "Luego de la extracción los demás elementos de la lista se vieron alterados")
-    #         nodo_original = nodo_original.siguiente
-    #         nodo_copia = nodo_copia.siguiente
-    #         contador_pos += 1
+        nodo_original = self.lde_3.cabeza
+        nodo_copia = lde3_copia.cabeza
+        contador_pos = 0
+        while nodo_original is not None:
+            if contador_pos == posicion:
+                self.assertEqual(nodo_original.dato, item,
+                                 "El elemento extraido no coincide con el elemento originariamente en la posicion solicitada")
+                nodo_original = nodo_original.siguiente
+            self.assertEqual(nodo_original.dato, nodo_copia.dato,
+                             "Luego de la extracción los demás elementos de la lista se vieron alterados")
+            nodo_original = nodo_original.siguiente
+            nodo_copia = nodo_copia.siguiente
+            contador_pos += 1
 
     def test_excepciones_extraer(self):
         """
@@ -375,70 +375,70 @@ class Test_LDE(unittest.TestCase):
             # Avanzo al siguiente nodo de lista original
             nodo_original = nodo_original.anterior
 
-#     def test_metodo_concatenar(self):
-#         """
-#         Verifico que funcione bien la concatenacion de listas mediante el metodo
-#         concatenar. El metodo modifica la instancia que realiza la invocacion.
-#         """
-#         lista_concatenada1 = self.lde_3.copiar()
-#         lista_concatenada1.concatenar(self.lde_2)
+    def test_metodo_concatenar(self):
+        """
+        Verifico que funcione bien la concatenacion de listas mediante el metodo
+        concatenar. El metodo modifica la instancia que realiza la invocacion.
+        """
+        lista_concatenada1 = self.lde_3.copiar()
+        lista_concatenada1.concatenar(self.lde_2)
 
-#         # Compruebo que las listas originales esten intactas
-#         self.recorrer_lista(self.lde_3)
-#         self.recorrer_lista(self.lde_2)
+        # Compruebo que las listas originales esten intactas
+        self.recorrer_lista(self.lde_3)
+        self.recorrer_lista(self.lde_2)
 
-#         # Compruebo que la lista concatenada este bien enlazada
-#         self.recorrer_lista(lista_concatenada1)
+        # Compruebo que la lista concatenada este bien enlazada
+        self.recorrer_lista(lista_concatenada1)
 
-#         # Verifico que los elementos resulten efectivamente de la concatenacion
-#         # en orden de la lista lde_3 con lde_2
-#         nodo_original = self.lde_3.cabeza
-#         nodo_concat = lista_concatenada1.cabeza
-#         while nodo_original is not None:
-#             self.assertEqual(nodo_original.dato, nodo_concat.dato,
-#                              "No coinciden los nodos de la lista 1 con la lista concatenada")
-#             nodo_original = nodo_original.siguiente
-#             nodo_concat = nodo_concat.siguiente
-#         nodo_original = self.lde_2.cabeza
-#         while nodo_original is not None:
-#             self.assertEqual(nodo_original.dato, nodo_concat.dato,
-#                              "No coinciden los nodos de la lista 2 con la lista concatenada")
-#             nodo_original = nodo_original.siguiente
-#             nodo_concat = nodo_concat.siguiente
+        # Verifico que los elementos resulten efectivamente de la concatenacion
+        # en orden de la lista lde_3 con lde_2
+        nodo_original = self.lde_3.cabeza
+        nodo_concat = lista_concatenada1.cabeza
+        while nodo_original is not None:
+            self.assertEqual(nodo_original.dato, nodo_concat.dato,
+                             "No coinciden los nodos de la lista 1 con la lista concatenada")
+            nodo_original = nodo_original.siguiente
+            nodo_concat = nodo_concat.siguiente
+        nodo_original = self.lde_2.cabeza
+        while nodo_original is not None:
+            self.assertEqual(nodo_original.dato, nodo_concat.dato,
+                             "No coinciden los nodos de la lista 2 con la lista concatenada")
+            nodo_original = nodo_original.siguiente
+            nodo_concat = nodo_concat.siguiente
 
-#     def test_operador_add(self):
-#         """
-#         Verifico que funcione la concatenacion de listas mediante
-#         el uso del operador +
-#         Este operador devuelve una LDE que reuslta de la concatenación de las
-#         dos LDE que recibe como operandos. Internamente no modifica ninguno
-#         de sus dos operandos.
-#         """
-#         # lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
-#         lista_concatenada1 = self.lde_3 + self.lde_2
+    def test_operador_add(self):
+        """
+        Verifico que funcione la concatenacion de listas mediante
+        el uso del operador +
+        Este operador devuelve una LDE que reuslta de la concatenación de las
+        dos LDE que recibe como operandos. Internamente no modifica ninguno
+        de sus dos operandos.
+        """
+        # lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
+        lista_concatenada1 = self.lde_3 + self.lde_2
 
-#         # Compruebo que las listas originales esten intactas
-#         self.recorrer_lista(self.lde_3)
-#         self.recorrer_lista(self.lde_2)
+        # Compruebo que las listas originales esten intactas
+        self.recorrer_lista(self.lde_3)
+        self.recorrer_lista(self.lde_2)
 
-#         # Compruebo que la lista concatenada este bien enlazada
-#         self.recorrer_lista(lista_concatenada1)
+        # Compruebo que la lista concatenada este bien enlazada
+        self.recorrer_lista(lista_concatenada1)
 
-#         # Verifico que los elementos resulten efectivamente de la concatenacion
-#         # en orden de la lista lde_3 con lde_2
-#         nodo_original = self.lde_3.cabeza
-#         nodo_concat = lista_concatenada1.cabeza
-#         while nodo_original is not None:
-#             self.assertEqual(nodo_original.dato, nodo_concat.dato,
-#                              "No coinciden los nodos de la lista 1 con la lista concatenada")
-#             nodo_original = nodo_original.siguiente
-#             nodo_concat = nodo_concat.siguiente
-#         nodo_original = self.lde_2.cabeza
-#         while nodo_original is not None:
-#             self.assertEqual(nodo_original.dato, nodo_concat.dato,
-#                              "No coinciden los nodos de la lista 2 con la lista concatenada")
-#             nodo_original = nodo_original.siguiente
-#             nodo_concat = nodo_concat.siguiente
+        # Verifico que los elementos resulten efectivamente de la concatenacion
+        # en orden de la lista lde_3 con lde_2
+        nodo_original = self.lde_3.cabeza
+        nodo_concat = lista_concatenada1.cabeza
+        while nodo_original is not None:
+            self.assertEqual(nodo_original.dato, nodo_concat.dato,
+                             "No coinciden los nodos de la lista 1 con la lista concatenada")
+            nodo_original = nodo_original.siguiente
+            nodo_concat = nodo_concat.siguiente
+        nodo_original = self.lde_2.cabeza
+        while nodo_original is not None:
+            self.assertEqual(nodo_original.dato, nodo_concat.dato,
+                             "No coinciden los nodos de la lista 2 con la lista concatenada")
+            nodo_original = nodo_original.siguiente
+            nodo_concat = nodo_concat.siguiente
 
     def test_iteracion(self):
         """

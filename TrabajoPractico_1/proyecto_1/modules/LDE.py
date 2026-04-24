@@ -141,7 +141,18 @@ class ListaDobleEnlazada:
 
         
         if posicion != 0 and posicion != self.__tamanio:
-            pass
+            
+            actual = self.cabeza
+            
+            for _ in range(posicion):
+                actual = actual.siguiente
+                dato = actual.dato
+            actual.anterior.siguiente = actual.siguiente
+            actual.siguiente.anterior = actual.anterior
+
+            self.tamanio -= 1
+            
+            return dato
 
         if posicion < 0 or posicion > self.__tamanio:
             raise Exception("Posición inválida")
@@ -160,7 +171,6 @@ class ListaDobleEnlazada:
 
         actual = self.__cabeza
 
-        # Intercambia siguiente y anterior
         while actual is not None:
 
             actual.siguiente, actual.anterior = (
@@ -174,13 +184,25 @@ class ListaDobleEnlazada:
         self.__cabeza, self.__cola = self.__cola, self.__cabeza
 
     def concatenar(self, Lista):
-        pass
+        
+        if Lista.tamanio == 0:
+            return self
+        
+        actual = Lista.cabeza
 
+        while actual is not None:
+            self.agregar_al_final(actual.dato)
+            actual = actual.siguiente
+
+        return self
+        
     def __len__(self):
         return self.__tamanio
 
-    def __add__(self, lista):
-        pass
+    def __add__(self, Lista):
+        nueva_lista = self.copiar()
+        nueva_lista.concatenar(Lista)
+        return nueva_lista
 
     def __iter__(self):
         actual = self.__cabeza
