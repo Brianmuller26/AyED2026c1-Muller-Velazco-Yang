@@ -14,7 +14,7 @@ class Test_LDE(unittest.TestCase):
 
     def setUp(self):
         self.n_elementos = 200
-        """ LDE vacía """
+        """ LDE vacía """ 
         self.lde_1 = ListaDobleEnlazada()
         
 

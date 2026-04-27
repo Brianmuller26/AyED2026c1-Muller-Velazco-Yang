@@ -150,7 +150,7 @@ class ListaDobleEnlazada:
             actual.anterior.siguiente = actual.siguiente
             actual.siguiente.anterior = actual.anterior
 
-            self.tamanio -= 1
+            self.__tamanio -= 1
             
             return dato
 
@@ -205,9 +205,13 @@ class ListaDobleEnlazada:
         return nueva_lista
 
     def __iter__(self):
+        
         actual = self.__cabeza
-        while actual is not None:
+        for _ in range(self.__tamanio):
+            
             yield actual.dato
             actual = actual.siguiente
-    
+            
 
+
+        
