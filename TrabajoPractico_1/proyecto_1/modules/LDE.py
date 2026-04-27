@@ -211,7 +211,6 @@ class ListaDobleEnlazada:
             
             yield actual.dato
             actual = actual.siguiente
-            
 
 
         
