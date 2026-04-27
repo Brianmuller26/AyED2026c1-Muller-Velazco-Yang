@@ -34,8 +34,9 @@ pip install -r .\deps\requirements.txt
 8 - Una vez que realices las implementaciones de algoritmo y estructruas, estas estarán disponibles a través de las importaciones que toman como raiz "ayedfiuner". Por ejemplo, importar el algoritmo de ordenamiento rápido indicado como ejemplo ser haría con el código "from ayedfiuner.algoritmos.quicksort import ordenamiento_rapido".
 
 ## Integrantes del grupo:
-    - Apellido y Nombre del primer integrante
-    - Apellido y Nombre del segundo integrante
+    - Muller Brian Ezquiel 
+    - Velazco Francisco Martin
+    - Yang Luis Fernando
 
 ## Cuatrimestre de cursado:
-    1er/2do cuatrimestre del 20xx
+    1er cuatrimestre del 2026
