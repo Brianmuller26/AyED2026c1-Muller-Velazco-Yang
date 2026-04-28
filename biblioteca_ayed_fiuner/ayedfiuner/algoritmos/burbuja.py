@@ -1,20 +1,31 @@
+import random
+
 def ordenamiento_burbuja(lis):
-    n = len(lis)
-    for i in range(n):
+    for extremo in range(len(lis)-1, 0, -1):
         hubo_intercambio = False
-        for j in range(0, n-i-1):
-            if lis[j] > lis[j+1]:
-                aux = lis[j]
-                lis[j] = lis[j+1]
-                lis[j+1] = aux
+
+        for i in range(extremo):
+            if lis[i] > lis[i+1]:
+
+                auxiliar = lis[i]
+                lis[i] = lis[i+1]
+                lis[i+1] = auxiliar
+
                 hubo_intercambio = True
+            
+        #si no hay intercambio
         if not hubo_intercambio:
             break
-    return lis
 
+    return lis   
+    
 
 if __name__ == "__main__":
-    # Prueba local del algoritmo de ordenamiento burbuja
-    ejemplo_lis = [64, 34, 25, 12, 22, 11, 90]
+    # Prueba del algoritmo de ordenamiento burbuja
+    ejemplo_lis = []
+    for i in range(500):
+        numero = random.randint(10000, 999999)
+        ejemplo_lis.append(numero)
+
     lis_ordenada = ordenamiento_burbuja(ejemplo_lis)
     print("Lista ordenada:", lis_ordenada)
