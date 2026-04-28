@@ -1,14 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Aug 21 11:23:53 2022
-
-@author: Cátedra de Algoritmos y Estructura de Datos
-"""
-
-
 from modules.juego_guerra import JuegoGuerra
 import unittest
-
 
 class TestJuegoGuerra(unittest.TestCase):
     

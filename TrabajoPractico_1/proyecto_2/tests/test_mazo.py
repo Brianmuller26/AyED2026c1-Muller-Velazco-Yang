@@ -1,17 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Aug 21 11:23:53 2022
-
-@author: Cátedra de Algoritmos y Estructura de Datos
-"""
-
-
 from modules.carta import Carta
 from modules.mazo import Mazo
 import unittest
 
 
 class TestMazo(unittest.TestCase):
+    
     def setUp(self):
         self.mazo= Mazo()
 
@@ -22,12 +15,12 @@ class TestMazo(unittest.TestCase):
         # Se colocan las cartas arriba
         self.mazo.poner_carta_arriba(carta1)
         self.mazo.poner_carta_arriba(carta2)
-
+        
         # Se sacan las cartas arriba
         carta_control = self.mazo.sacar_carta_arriba()
         self.assertIs(carta2, carta_control)
 
-        #Se verifica que la carta que queda en el mazo se la que se coloco primero
+        #Se verifica que la carta que queda en el mazo es la que se coloco primero
         carta_control = self.mazo.sacar_carta_arriba()
         self.assertIs(carta1, carta_control)
 
@@ -36,18 +29,17 @@ class TestMazo(unittest.TestCase):
         carta1=Carta('5','trebol')
         carta2=Carta('3','corazones')
 
-        # Se colocan las cartas abajo
+        #Se colocan las cartas abajo
         self.mazo.poner_carta_abajo(carta1)
         self.mazo.poner_carta_abajo(carta2)
 
-        # Sacamos la carta superior (que debería ser la primera que pusimos en la parte de arriba)
+        #Sacamos la carta superior (que debería ser la primera que pusimos en la parte de arriba)
         carta_control = self.mazo.sacar_carta_arriba()
         self.assertIs(carta1, carta_control)  # La carta que sacamos debe ser carta1, ya que fue la primera en ponerse abajo
 
-        # Sacamos la siguiente carta, que debería ser la carta que pusimos al final (carta2)
+        #Sacamos la siguiente carta, que debería ser la carta que pusimos al final (carta2)
         carta_control = self.mazo.sacar_carta_arriba()
         self.assertIs(carta2, carta_control)  # La siguiente carta debe ser carta2
-        
-        
+         
 if __name__ == '__main__':
     unittest.main()
