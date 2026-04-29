@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # Prueba del algoritmo de ordenamiento burbuja
     ejemplo_lis = []
     for i in range(500):
-        numero = random.randint(10000, 999999)
+        numero = random.randint(10000, 99999)
         ejemplo_lis.append(numero)
 
     lis_ordenada = ordenamiento_burbuja(ejemplo_lis)

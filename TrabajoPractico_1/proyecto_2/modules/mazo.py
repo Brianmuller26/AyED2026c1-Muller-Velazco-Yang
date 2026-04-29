@@ -8,7 +8,6 @@ class Mazo:
     
     def __init__ (self):
         self.__mazo = ListaDobleEnlazada()
-        self.__carta = Carta()
         self.__tamanio = 0
 
     def poner_carta_arriba(self, carta):
@@ -23,8 +22,11 @@ class Mazo:
         if self.__tamanio == 0:
             raise DequeEmptyError("Lista Vacia")
         else:
+            if mostrar == True:
+                carta = self.__mazo.extraer(0)
+                carta.visible = True
             self.__tamanio -= 1
-            return self.__mazo.extraer(0)
+            return carta
         
     def __len__(self):
         return self.__tamanio
