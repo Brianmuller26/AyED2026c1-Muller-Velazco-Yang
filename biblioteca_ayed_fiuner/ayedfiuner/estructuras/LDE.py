@@ -30,6 +30,13 @@ class ListaDobleEnlazada:
         return self.__tamanio
     
     def esta_vacia(self):
+        """
+        Indica si la lista está vacía.
+
+        Returns:
+            bool: True si la lista no posee elementos,
+            False en caso contrario.
+        """
         if self.__tamanio == 0:
             return True
         else:
@@ -58,7 +65,16 @@ class ListaDobleEnlazada:
         self.__tamanio = tamanio
 
     def agregar_al_inicio(self, item):
-        
+        """
+        Agrega un elemento al inicio de la lista.
+
+        Args:
+            item: elemento a insertar.
+
+        Post:
+            - el elemento queda ubicado al inicio
+            - el tamaño de la lista aumenta en 1
+        """
         nuevo_nodo = Nodo(item)
         if self.cabeza is None:
             self.__cabeza = nuevo_nodo
@@ -70,7 +86,16 @@ class ListaDobleEnlazada:
         self.__tamanio += 1
 
     def agregar_al_final(self, item):
-        
+        """
+        Agrega un elemento al final de la lista.
+
+        Args:
+            item: elemento a insertar.
+
+        Post:
+            - el elemento queda ubicado al final
+            - el tamaño de la lista aumenta en 1
+        """
         nuevo_nodo = Nodo(item)
         if self.cola is None:
             self.__cabeza = nuevo_nodo
@@ -82,7 +107,23 @@ class ListaDobleEnlazada:
         self.__tamanio += 1
 
     def insertar(self, item, posicion):
+        """
+        Inserta un elemento en una posición específica.
 
+        Args:
+            item: elemento a insertar.
+            posicion (int): posición donde insertar el elemento.
+
+        Pre:
+            - posicion debe estar entre 0 y el tamaño de la lista
+
+        Post:
+            - el elemento queda insertado en la posición indicada
+            - el tamaño de la lista aumenta en 1
+
+        Raises:
+            Exception: si la posición es inválida.
+        """
         if posicion < 0 or posicion > self.tamanio:
             raise Exception("Posición inválida")
         
@@ -107,7 +148,26 @@ class ListaDobleEnlazada:
             self.tamanio += 1
     
     def extraer(self, posicion = None): 
+        """
+        Extrae y devuelve un elemento de la lista.
 
+        Args:
+            posicion (int | None): posición del elemento a extraer.
+            Si es None, se extrae el último elemento.
+
+        Pre:
+            - la lista no debe estar vacía
+
+        Post:
+            - el elemento es eliminado de la lista
+            - el tamaño de la lista disminuye en 1
+
+        Returns:
+            dato: elemento extraído.
+
+        Raises:
+            Exception: si la lista está vacía o la posición es inválida.
+        """
         if self.__cabeza == None and self.__cola == None:
             raise Exception("Lista Vacia")       
         
@@ -158,6 +218,16 @@ class ListaDobleEnlazada:
             raise Exception("Posición inválida")
     
     def copiar(self):
+        """
+        Genera una copia de la lista.
+
+        Post:
+            - se crea una nueva lista con los mismos elementos
+            - la lista original no se modifica
+
+        Returns:
+            ListaDobleEnlazada: copia de la lista.
+        """
         copia = ListaDobleEnlazada()
         actual = self.cabeza
 
@@ -168,7 +238,13 @@ class ListaDobleEnlazada:
         return copia
     
     def invertir(self):
+        """
+        Invierte el orden de los elementos de la lista.
 
+        Post:
+            - los elementos quedan en orden inverso
+            - el tamaño de la lista no se modifica
+        """
         actual = self.__cabeza
 
         while actual is not None:
@@ -184,7 +260,19 @@ class ListaDobleEnlazada:
         self.__cabeza, self.__cola = self.__cola, self.__cabeza
 
     def concatenar(self, Lista):
-        
+        """
+        Concatena otra lista al final de la lista actual.
+
+        Args:
+            Lista (ListaDobleEnlazada): lista a concatenar.
+
+        Post:
+            - los elementos de la segunda lista se agregan al final
+            - el tamaño de la lista aumenta
+
+        Returns:
+            ListaDobleEnlazada: la lista concatenada.
+        """
         if Lista.tamanio == 0:
             return self
         
@@ -197,14 +285,39 @@ class ListaDobleEnlazada:
         return self
         
     def __len__(self):
+        """
+        Devuelve la cantidad de elementos de la lista.
+
+        Returns:
+            int: tamaño de la lista.
+        """
         return self.__tamanio
 
     def __add__(self, Lista):
+        """
+        Une dos listas en una nueva lista.
+
+        Args:
+            Lista (ListaDobleEnlazada): lista a concatenar.
+
+        Post:
+            - se crea una nueva lista con los elementos de ambas
+            - las listas originales no se modifican
+
+        Returns:
+            ListaDobleEnlazada: nueva lista concatenada.
+        """
         nueva_lista = self.copiar()
         nueva_lista.concatenar(Lista)
         return nueva_lista
 
     def __iter__(self):
+        """
+        Permite recorrer los elementos de la lista.
+
+        Yields:
+            dato: elemento siguiente de la lista.
+        """
         
         actual = self.__cabeza
         for _ in range(self.__tamanio):

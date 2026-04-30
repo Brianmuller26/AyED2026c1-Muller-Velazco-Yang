@@ -2,7 +2,7 @@ from modules.mazo import Mazo, DequeEmptyError
 from modules.carta import Carta
 import random
 
-N_TURNOS = 1000
+N_TURNOS = 10000
 
 
 class JuegoGuerra:

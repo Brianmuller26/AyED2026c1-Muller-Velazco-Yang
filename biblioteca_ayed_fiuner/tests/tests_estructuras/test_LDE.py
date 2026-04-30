@@ -3,8 +3,7 @@
 Created on Thu Sep  1 14:00:21 2022
 @author: Catedra de Algoritmos y Estructura de Datos
 """
-
-from modules.LDE import ListaDobleEnlazada  # Importa la clase ListaDobleEnlazada
+from ayedfiuner.estructuras.LDE import ListaDobleEnlazada # Importa la clase ListaDobleEnlazada
 import unittest
 import random
 

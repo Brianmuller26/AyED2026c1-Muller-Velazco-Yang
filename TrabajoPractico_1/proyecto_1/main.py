@@ -1,9 +1,10 @@
 import time
 import matplotlib.pyplot as plt
 import random
-from modules.LDE import ListaDobleEnlazada
+from ayedfiuner.estructuras.LDE import ListaDobleEnlazada
 
-N_lista = [100, 500, 1000, 5000, 10000]
+
+N_lista = list(range(1000, 20001, 2500))
 
 tiempos_len = []
 tiempos_copiar = []
@@ -48,6 +49,6 @@ max_invertir = max(tiempos_invertir)
 plt.scatter(N_lista[tiempos_len.index(max_len)], max_len)
 plt.scatter(N_lista[tiempos_copiar.index(max_copiar)], max_copiar)
 plt.scatter(N_lista[tiempos_invertir.index(max_invertir)], max_invertir)
-
-plt.savefig("data/grafico_tiempos.png")
+#D:\Facultad\Programacion\AyED2026c1-Muller-Velazco-Yang\TrabajoPractico_1\proyecto_1\data
+plt.savefig("TrabajoPractico_1/proyecto_1/data/grafico_tiempos.png")
 plt.show()

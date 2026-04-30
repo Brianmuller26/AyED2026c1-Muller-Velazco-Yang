@@ -1,7 +1,8 @@
 import time
 import matplotlib.pyplot as plt
 import random
-from modules.LDE import ListaDobleEnlazada
+from ayedfiuner.estructuras.LDE import ListaDobleEnlazada
+
 
 N_lista = [100, 500, 1000, 5000, 10000]
 

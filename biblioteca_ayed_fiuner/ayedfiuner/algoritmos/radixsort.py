@@ -1,6 +1,29 @@
 import random
 
 def ordenamiento_radix(lis):
+    """
+    Ordena una lista de números enteros positivos utilizando
+    el algoritmo Radix Sort.
+
+    Args:
+        lis (list): lista de números enteros positivos.
+
+    Pre:
+        - lis debe ser una lista
+        - todos los elementos deben ser números enteros positivos
+        - los números deben tener como máximo 5 dígitos
+
+    Post:
+        - la lista queda ordenada de menor a mayor
+        - se conservan todos los elementos originales
+        - no se modifica la cantidad de elementos
+
+    Returns:
+        list: la misma lista ordenada de menor a mayor.
+
+    Raises:
+        TypeError: si existen elementos que no son enteros.
+    """
 
     if len(lis) == 0:
         return lis
@@ -31,7 +54,8 @@ if __name__ == "__main__":
     for i in range(500):
         numero = random.randint(10000, 99999)
         ejemplo_lis.append(numero)
-
+    lis_sort = sorted(ejemplo_lis)
     lis_ordenada = ordenamiento_radix(ejemplo_lis)
-    print("Lista ordenada:", lis_ordenada)
+    if lis_sort == lis_ordenada:
+        print("La lista esta ordenanda correctamente ")
      
