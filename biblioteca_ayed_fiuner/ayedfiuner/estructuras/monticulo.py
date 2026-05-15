@@ -4,24 +4,29 @@ class MonticuloBinario:
         self.listaMonticulo = [0]
         self.tamanoActual = 0   
 
+    def hijoMin(self, i):
+        #El i * 2 se refiere al hijo izquierdo y el i * 2+1 es el hijo izquierdo
+        if i * 2 + 1 > self.tamanoActual:
+            return i * 2 
+        else:
+            # Comparamos riesgos de los dos hijos
+            if self.listaMonticulo[i*2].get_riesgo() < self.listaMonticulo[i*2+1].get_riesgo():
+                return i * 2
+            else:
+                return i * 2 + 1
+    
     def infiltArriba(self, i):
         while i // 2 > 0:
             # Accedemos a get_riesgo() para comparar las prioridades
             prioridad_hijo = self.listaMonticulo[i].get_riesgo()
             prioridad_padre = self.listaMonticulo[i // 2].get_riesgo()
             
+            #Corrobora si el hijo es menor que el padre
             if prioridad_hijo < prioridad_padre:
-                self.listaMonticulo[i], self.listaMonticulo[i // 2] = \
-                    self.listaMonticulo[i // 2], self.listaMonticulo[i]
+                self.listaMonticulo[i], self.listaMonticulo[i // 2] = self.listaMonticulo[i // 2], self.listaMonticulo[i]
+            #Recorre todo el monticulo hasta llegar a 0
             i = i // 2
-    
-    
-    def insertar(self, k):
-        self.listaMonticulo.append(k)
-        self.tamanoActual += 1
-        self.infiltArriba(self.tamanoActual)    
-    
-    
+
     def infiltAbajo(self, i):
         while (i * 2) <= self.tamanoActual:
             hm = self.hijoMin(i)
@@ -29,33 +34,25 @@ class MonticuloBinario:
             prioridad_hijo_min = self.listaMonticulo[hm].get_riesgo()
             
             if prioridad_padre > prioridad_hijo_min:
-                self.listaMonticulo[i], self.listaMonticulo[hm] = \
-                    self.listaMonticulo[hm], self.listaMonticulo[i]
+                self.listaMonticulo[i], self.listaMonticulo[hm] = self.listaMonticulo[hm], self.listaMonticulo[i]
             i = hm
-
-
-    def hijoMin(self, i):
-        if i * 2 + 1 > self.tamanoActual:
-            return i * 2
-        else:
-            # Comparamos riesgos de los dos hijos
-            if self.listaMonticulo[i*2].get_riesgo() < self.listaMonticulo[i*2+1].get_riesgo():
-                return i * 2
-            else:
-                return i * 2 + 1
+    
+    def insertar(self, k):
+        self.listaMonticulo.append(k)
+        self.tamanoActual += 1
+        self.infiltArriba(self.tamanoActual)    
         
     def eliminarMin(self):
+        #El monticulo empieza desde 1
         if self.tamanoActual == 0:
             return None
         valorSacado = self.listaMonticulo[1]
-        self.listaMonticulo[1] = self.listaMonticulo[self.tamanoActual]
+        self.listaMonticulo[1] = self.listaMonticulo[self.tamanoActual] #Intercambia de lugar al nodo ultimo con el primero
         self.tamanoActual -= 1
-        self.listaMonticulo.pop()
-        if self.tamanoActual > 0:
-            self.infiltAbajo(1)
+        self.listaMonticulo.pop() #Elimina el primer ultimo nodo
+        if self.tamanoActual > 0: 
+            self.infiltAbajo(1) #Ordena el monticulo
         return valorSacado
-
-
 
     def construirMonticulo(self,unaLista):
         i = len(unaLista) // 2
