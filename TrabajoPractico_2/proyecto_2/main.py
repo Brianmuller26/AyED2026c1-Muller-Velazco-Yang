@@ -5,7 +5,7 @@ Sala de emergencias
 
 import time
 import datetime
-import modules.paciente as pac
+import modules.temperatura as pac
 import random
 
 n = 20  # cantidad de ciclos de simulación
