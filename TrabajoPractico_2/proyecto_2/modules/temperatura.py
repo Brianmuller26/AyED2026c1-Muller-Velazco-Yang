@@ -5,21 +5,22 @@ class Temperaturas_DB:
     def __init__(self):
         self.__avl = AVL()
 
-    def _formatear_fecha(self, fecha_str):
-        """Convierte string dd/mm/aaaa a objeto datetime para comparaciones."""
-        return datetime.datetime.strptime(fecha_str, "%d/%m/%Y")
+    # def _formatear_fecha(self, fecha_str):
+    #     """Convierte string dd/mm/aaaa a objeto datetime para comparaciones."""
+    #     return datetime.datetime.strptime(fecha_str, "%d/%m/%Y")
 
     def guardar_temperatura(self, temperatura, fecha):
-        clave = self._formatear_fecha(fecha)
-        self.__avl.agregar(clave, temperatura)
+        # clave = self._formatear_fecha(fecha)
+        self.__avl.agregar(fecha, temperatura)
+
 
     def devolver_temperatura(self, fecha):
-        clave = self._formatear_fecha(fecha)
-        return self.__avl.obtener(clave)
+        # clave = self._formatear_fecha(fecha)
+        return self.__avl.obtener(fecha)
 
     def borrar_temperatura(self, fecha):
-        clave = self._formatear_fecha(fecha)
-        self.__avl.eliminar(clave)
+        # clave = self._formatear_fecha(fecha)
+        self.__avl.eliminar(fecha)
 
     def cantidad_muestras(self):
         return len(self.__avl)
@@ -55,19 +56,28 @@ class Temperaturas_DB:
     def min_temp_rango(self, f1, f2):
         return self.temp_extremos_rango(f1, f2)[0]
     
-def cargar_muestras(base_datos, nombre_archivo):
-    with open(nombre_archivo, 'r') as archivo:
+# def cargar_muestras(base_datos, nombre_archivo):
+#     with open(nombre_archivo, 'r') as archivo:
+#         for linea in archivo:
+#             # Ignora el prefijo si existe y limpia espacios
+#             linea = linea.replace('', '').strip()
+#             if linea:
+#                 fecha, temp = linea.split(';')
+#                 base_datos.guardar_temperatura(float(temp), fecha)
+
+# # Ejemplo de uso
+# db = Temperaturas_DB()
+# cargar_muestras(db, 'data\muestras.txt')
+# print(f"Muestras cargadas: {db.cantidad_muestras()}")
+# for i in db.devolver_temperaturas('01/03/2025', '31/03/2025'):
+#     print(i)
+# #print(f"Rango Marzo: {db.devolver_temperaturas('01/03/2025', '31/03/2025')}")
+muestra_temperatura = Temperaturas_DB()
+if __name__ == "__main__":
+    with open('data/muestras.txt', 'r') as archivo:
         for linea in archivo:
             # Ignora el prefijo si existe y limpia espacios
             linea = linea.replace('', '').strip()
             if linea:
                 fecha, temp = linea.split(';')
-                base_datos.guardar_temperatura(float(temp), fecha)
-
-# Ejemplo de uso
-db = Temperaturas_DB()
-cargar_muestras(db, 'data\muestras.txt')
-print(f"Muestras cargadas: {db.cantidad_muestras()}")
-for i in db.devolver_temperaturas('01/03/2025', '31/03/2025'):
-    print(i)
-#print(f"Rango Marzo: {db.devolver_temperaturas('01/03/2025', '31/03/2025')}")
+                muestra_temperatura.guardar_temperatura(float(temp), fecha)
