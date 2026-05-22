@@ -276,3 +276,46 @@ class AVL(ArbolBinarioBusqueda):
                     self.rotarDerecha(nodo)
                 else:
                     self.rotarDerecha(nodo)
+
+
+
+
+def imprimir_estructura(nodo, nivel=0, prefijo="Raíz: "):
+        """Imprime el árbol de costado para ver su forma jerárquica."""
+        if nodo is not None:
+            imprimir_estructura(nodo.hijoDerecho, nivel + 1, "Der: ")
+            print(" " * (nivel * 4) + prefijo + str(nodo.clave) + f" [FE: {nodo.factorEquilibrio}]")
+            imprimir_estructura(nodo.hijoIzquierdo, nivel + 1, "Izq: ")
+
+if __name__ == "__main__":
+    # """Prueba del factor de equilibrio y de rotación."""
+    # lista = [1,2,4,6,8,9,32,89,23]
+    # arbol = AVL()
+
+    # Crear el árbol AVL
+    arbol_test = AVL()
+
+    print("--- Insertando el número 30 ---")
+    arbol_test.agregar(30, "Valor 30")
+    print("RAIZ:", arbol_test.factorequilibrio)
+    print("\n" + "-"*30)
+
+    print("--- Insertando el número 20 ---")
+    arbol_test.agregar(20, "Valor 20")
+    
+    print("\n" + "-"*30)
+
+    print("--- Insertando el número 10 (Debería provocar una Rotación Simple a la Derecha) ---")
+    arbol_test.agregar(10, "Valor 10")
+    
+    print("\n" + "-"*30)
+
+    # print("--- Insertando el número 40 ---")
+    # arbol_test.agregar(40, "Valor 40")
+ 
+    # print("\n" + "-"*30)
+
+    # print("--- Insertando el número 50 (Debería provocar una Rotación Simple a la Izquierda) ---")
+    # arbol_test.agregar(50, "Valor 50")
+
+        
