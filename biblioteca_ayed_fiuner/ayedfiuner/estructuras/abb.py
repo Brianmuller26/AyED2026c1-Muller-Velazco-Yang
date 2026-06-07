@@ -1,5 +1,17 @@
 class NodoArbol:
     def __init__(self, clave, valor, izquierdo = None, derecho = None, padre = None):
+        """
+        Precondición:
+
+        clave debe ser comparable con otras claves del árbol.
+        valor puede ser cualquier dato.
+        Los parámetros izquierdo, derecho y padre deben ser nodos válidos o None.
+        
+        Postcondición:
+
+        Se crea un nodo con la clave y valor indicados.
+        El factor de equilibrio queda inicializado en 0.
+        """
         self.clave = clave
         self.cargaUtil = valor
         self.hijoIzquierdo = izquierdo
@@ -8,30 +20,111 @@ class NodoArbol:
         self.factorEquilibrio = 0
 
     def tieneHijoIzquierdo(self):
+        """
+        Precondición:
+
+        El nodo debe existir.
+
+        Postcondición:
+
+        Devuelve el hijo izquierdo si existe, o None en caso contrario.
+        """
         return self.hijoIzquierdo
 
     def tieneHijoDerecho(self):
+        """
+        Precondición:
+
+        El nodo debe existir.
+
+        Postcondición:
+
+        Devuelve el hijo derecho si existe, o None en caso contrario.
+        """
         return self.hijoDerecho
 
     def esHijoIzquierdo(self):
+        """
+        Precondición:
+        El nodo debe pertenecer a un árbol.
+
+        Postcondición:
+        Devuelve True si el nodo es hijo izquierdo de su padre.
+        Devuelve False en caso contrario.
+        """
         return self.padre and self.padre.hijoIzquierdo == self
 
     def esHijoDerecho(self):
+        """
+        Precondición:
+        El nodo debe pertenecer a un árbol.
+
+        Postcondición:
+        Devuelve True si el nodo es hijo derecho de su padre.
+        Devuelve False en caso contrario.
+        """
         return self.padre and self.padre.hijoDerecho == self
 
     def esRaiz(self):
+        """
+        Precondición:
+        El nodo debe existir.
+
+        Postcondición:
+        Devuelve True si el nodo no posee padre.
+        Devuelve False en caso contrario.
+        """
         return not self.padre
 
     def esHoja(self):
+        """
+        Precondición:
+
+        El nodo debe existir.
+
+        Postcondición:
+
+        Devuelve True si el nodo no tiene hijos.
+        Devuelve False en caso contrario.
+        """
         return not (self.hijoDerecho or self.hijoIzquierdo)
 
     def tieneAlgunHijo(self):
+        """
+        Precondición:
+
+        El nodo debe existir.
+
+        Postcondición:
+
+        Devuelve True si posee al menos un hijo.
+        """
         return self.hijoDerecho or self.hijoIzquierdo
 
     def tieneAmbosHijos(self):
+        """
+        Precondición:
+
+        El nodo debe existir.
+
+        Postcondición:
+
+        Devuelve True si posee hijo izquierdo y derecho.
+        """
         return self.hijoDerecho and self.hijoIzquierdo
 
     def reemplazarDatoDeNodo(self, clave, valor, hizq, hder):
+        """
+        Precondición:
+
+        Los parámetros deben ser válidos.
+        hizq y hder deben ser nodos o None.
+
+        Postcondición:
+
+        Actualiza la información almacenada en el nodo.
+        Reasigna correctamente los padres de los hijos.
+        """
         self.clave = clave
         self.cargaUtil = valor
         self.hijoIzquierdo = hizq
@@ -42,18 +135,55 @@ class NodoArbol:
             self.hijoDerecho.padre = self
 
 class ArbolBinarioBusqueda:
+    """
+    Precondición:
+
+    Ninguna.
+
+    Postcondición:
+
+    Se crea un árbol vacío.
+    """
 
     def __init__(self):
         self.raiz = None
         self.tamano = 0
 
     def longitud(self):
+        """
+        Precondición:
+        El árbol debe existir.
+
+        Postcondición:
+        Devuelve la cantidad de nodos almacenados en el árbol.
+        No modifica la estructura del árbol.
+        """
         return self.tamano
 
     def __len__(self):
+        """
+        Precondición:
+
+        El árbol debe existir.
+
+        Postcondición:
+
+        Devuelve la cantidad de nodos almacenados en el árbol.
+        No modifica la estructura del árbol.
+        """
         return self.tamano
 
     def agregar(self, clave, valor):
+        """
+        Precondición:
+
+        nodoActual debe pertenecer al árbol.
+        La clave debe ser comparable.
+
+        Postcondición:
+
+        El nuevo nodo queda insertado en la posición correspondiente.
+        """
         if self.raiz:
             self._agregar(clave, valor, self.raiz)
         else:
@@ -61,6 +191,15 @@ class ArbolBinarioBusqueda:
         self.tamano = self.tamano + 1
 
     def _agregar(self, clave, valor, nodoActual):
+        """
+        Precondición:
+        nodoActual debe pertenecer al árbol AVL.
+        La clave debe ser comparable con las demás claves.
+
+        Postcondición:
+        Se inserta un nuevo nodo respetando las propiedades del árbol AVL.
+        Se actualizan los factores de equilibrio necesarios.
+        """
         if clave < nodoActual.clave:
             if nodoActual.tieneHijoIzquierdo():
                    self._agregar(clave, valor, nodoActual.hijoIzquierdo)
@@ -73,134 +212,243 @@ class ArbolBinarioBusqueda:
                    nodoActual.hijoDerecho = NodoArbol(clave, valor, padre=nodoActual)
 
     def __setitem__(self, c, v):
-       self.agregar(c, v)
+        """
+        Precondición:
+        La clave debe ser comparable con las demás claves del árbol.
+
+        Postcondición:
+        Se inserta un nuevo elemento utilizando la clave y el valor recibidos.
+        El tamaño del árbol aumenta en una unidad.
+        """
+        self.agregar(c, v)
 
     def obtener(self, clave):
-       if self.raiz:
-           res = self._obtener(clave,self.raiz)
-           if res:
-                  return res.cargaUtil
-           else:
-                  return None
-       else:
-           return None
+        """
+        Precondición:
+        
+        La clave debe ser comparable.
+
+        Postcondición:
+
+        Devuelve el valor asociado a la clave si existe.
+        Devuelve None si no se encuentra.
+        """
+        if self.raiz:
+            res = self._obtener(clave,self.raiz)
+            if res:
+                    return res.cargaUtil
+            else:
+                    return None
+        else:
+            return None
 
     def _obtener(self, clave, nodoActual):
-       if not nodoActual:
-           return None
-       elif nodoActual.clave == clave:
-           return nodoActual
-       elif clave < nodoActual.clave:
-           return self._obtener(clave, nodoActual.hijoIzquierdo)
-       else:
-           return self._obtener(clave, nodoActual.hijoDerecho)
+        """
+        Precondición:
+
+        nodoActual debe ser un nodo válido o None.
+
+        Postcondición:
+
+        Devuelve el nodo que contiene la clave buscada o None.
+        """
+        if not nodoActual:
+            return None
+        elif nodoActual.clave == clave:
+            return nodoActual
+        elif clave < nodoActual.clave:
+            return self._obtener(clave, nodoActual.hijoIzquierdo)
+        else:
+            return self._obtener(clave, nodoActual.hijoDerecho)
 
     def __getitem__(self, clave):
-       return self.obtener(clave)
+        """
+        Precondición:
+        La clave debe ser comparable con las claves almacenadas.
+
+        Postcondición:
+        Devuelve el valor asociado a la clave indicada.
+        Devuelve None si la clave no existe.
+        """
+        return self.obtener(clave)
 
     def __contains__(self, clave):
-       if self._obtener(clave, self.raiz):
-           return True
-       else:
-           return False
+        """
+        Precondición:
+        La clave debe ser comparable con las claves almacenadas.
+
+        Postcondición:
+        Devuelve True si la clave pertenece al árbol.
+        Devuelve False en caso contrario.
+        """
+        if self._obtener(clave, self.raiz):
+            return True
+        else:
+            return False
 
     def eliminar(self, clave):
-      if self.tamano > 1:
-         nodoAEliminar = self._obtener(clave, self.raiz)
-         if nodoAEliminar:
-             self.remover(nodoAEliminar)
-             self.tamano = self.tamano-1
-         else:
-             raise KeyError('Error, la clave no está en el árbol')
-      elif self.tamano == 1 and self.raiz.clave == clave:
-         self.raiz = None
-         self.tamano = self.tamano - 1
-      else:
-         raise KeyError('Error, la clave no está en el árbol')
+        """
+        Precondición:
+
+        La clave debe existir en el árbol.
+
+        Postcondición:
+
+        El nodo correspondiente es eliminado.
+        El tamaño del árbol disminuye en una unidad.
+        Se mantiene la propiedad de ABB.
+        """
+        if self.tamano > 1:
+            nodoAEliminar = self._obtener(clave, self.raiz)
+            if nodoAEliminar:
+                self.remover(nodoAEliminar)
+                self.tamano = self.tamano-1
+            else:
+                raise KeyError('Error, la clave no está en el árbol')
+        elif self.tamano == 1 and self.raiz.clave == clave:
+            self.raiz = None
+            self.tamano = self.tamano - 1
+        else:
+            raise KeyError('Error, la clave no está en el árbol')
 
     def __delitem__(self, clave):
-       self.eliminar(clave)
+        """
+        Precondición:
+        La clave debe existir en el árbol.
+
+        Postcondición:
+        El nodo asociado a la clave es eliminado.
+        El tamaño del árbol disminuye en una unidad.
+        """
+        self.eliminar(clave)
 
     def empalmar(self):
-       if self.esHoja():
-           if self.esHijoIzquierdo():
-                  self.padre.hijoIzquierdo = None
-           else:
-                  self.padre.hijoDerecho = None
-       elif self.tieneAlgunHijo():
-           if self.tieneHijoIzquierdo():
-                  if self.esHijoIzquierdo():
-                     self.padre.hijoIzquierdo = self.hijoIzquierdo
-                  else:
-                     self.padre.hijoDerecho = self.hijoIzquierdo
-                  self.hijoIzquierdo.padre = self.padre
-           else:
-                  if self.esHijoIzquierdo():
-                     self.padre.hijoIzquierdo = self.hijoDerecho
-                  else:
-                     self.padre.hijoDerecho = self.hijoDerecho
-                  self.hijoDerecho.padre = self.padre
+        """
+        Precondición:
+        El nodo debe pertenecer al árbol y tener cero o un hijo.
+
+        Postcondición:
+        El nodo es desconectado del árbol manteniendo correctamente los enlaces entre padre e hijos.
+        La estructura del árbol continúa siendo válida.
+        """
+        if self.esHoja():
+            if self.esHijoIzquierdo():
+                self.padre.hijoIzquierdo = None
+            else:
+                self.padre.hijoDerecho = None
+        elif self.tieneAlgunHijo():
+            if self.tieneHijoIzquierdo():
+                    if self.esHijoIzquierdo():
+                        self.padre.hijoIzquierdo = self.hijoIzquierdo
+                    else:
+                        self.padre.hijoDerecho = self.hijoIzquierdo
+                    self.hijoIzquierdo.padre = self.padre
+            else:
+                if self.esHijoIzquierdo():
+                    self.padre.hijoIzquierdo = self.hijoDerecho
+                else:
+                    self.padre.hijoDerecho = self.hijoDerecho
+                    self.hijoDerecho.padre = self.padre
 
     def encontrarSucesor(self):
-      suc = None
-      if self.tieneHijoDerecho():
-          suc = self.hijoDerecho.encontrarMin()
-      else:
-          if self.padre:
-                 if self.esHijoIzquierdo():
-                     suc = self.padre
-                 else:
-                     self.padre.hijoDerecho = None
-                     suc = self.padre.encontrarSucesor()
-                     self.padre.hijoDerecho = self
-      return suc
+        """
+        Precondición:
+
+        El nodo debe pertenecer al árbol.
+
+        Postcondición:
+
+        Devuelve el sucesor in-order del nodo.
+        Devuelve None si no existe sucesor.
+        """
+        suc = None
+        if self.tieneHijoDerecho():
+            suc = self.hijoDerecho.encontrarMin()
+        else:
+            if self.padre:
+                if self.esHijoIzquierdo():
+                    suc = self.padre
+                else:
+                    self.padre.hijoDerecho = None
+                    suc = self.padre.encontrarSucesor()
+                    self.padre.hijoDerecho = self
+        return suc
 
     def encontrarMin(self):
-      actual = self
-      while actual.tieneHijoIzquierdo():
-          actual = actual.hijoIzquierdo
-      return actual
+        """
+        Precondición:
+
+        El subárbol no debe estar vacío.
+
+        Postcondición:
+
+        Devuelve el nodo con la menor clave del subárbol.
+        """
+        actual = self
+        while actual.tieneHijoIzquierdo():
+            actual = actual.hijoIzquierdo
+        return actual
 
     def remover(self, nodoActual):
-         if nodoActual.esHoja(): #hoja
-           if nodoActual == nodoActual.padre.hijoIzquierdo:
-               nodoActual.padre.hijoIzquierdo = None
-           else:
-               nodoActual.padre.hijoDerecho = None
-         elif nodoActual.tieneAmbosHijos(): #interior
-           suc = nodoActual.encontrarSucesor()
-           suc.empalmar()
-           nodoActual.clave = suc.clave
-           nodoActual.cargaUtil = suc.cargaUtil
+        """
+        Precondición:
 
-         else: # este nodo tiene un (1) hijo
-           if nodoActual.tieneHijoIzquierdo():
-             if nodoActual.esHijoIzquierdo():
-                 nodoActual.hijoIzquierdo.padre = nodoActual.padre
-                 nodoActual.padre.hijoIzquierdo = nodoActual.hijoIzquierdo
-             elif nodoActual.esHijoDerecho():
-                 nodoActual.hijoIzquierdo.padre = nodoActual.padre
-                 nodoActual.padre.hijoDerecho = nodoActual.hijoIzquierdo
-             else:
-                 nodoActual.reemplazarDatoDeNodo(nodoActual.hijoIzquierdo.clave,
+        nodoActual debe pertenecer al árbol.
+
+        Postcondición:
+
+        El nodo es eliminado correctamente.
+        La estructura del árbol sigue siendo válida.
+        """
+        if nodoActual.esHoja(): #hoja
+            if nodoActual == nodoActual.padre.hijoIzquierdo:
+                nodoActual.padre.hijoIzquierdo = None
+            else:
+                nodoActual.padre.hijoDerecho = None
+        elif nodoActual.tieneAmbosHijos(): #interior
+            suc = nodoActual.encontrarSucesor()
+            suc.empalmar()
+            nodoActual.clave = suc.clave
+            nodoActual.cargaUtil = suc.cargaUtil
+
+        else: # este nodo tiene un (1) hijo
+            if nodoActual.tieneHijoIzquierdo():
+                if nodoActual.esHijoIzquierdo():
+                    nodoActual.hijoIzquierdo.padre = nodoActual.padre
+                    nodoActual.padre.hijoIzquierdo = nodoActual.hijoIzquierdo
+                elif nodoActual.esHijoDerecho():
+                    nodoActual.hijoIzquierdo.padre = nodoActual.padre
+                    nodoActual.padre.hijoDerecho = nodoActual.hijoIzquierdo
+                else:
+                    nodoActual.reemplazarDatoDeNodo(nodoActual.hijoIzquierdo.clave,
                                     nodoActual.hijoIzquierdo.cargaUtil,
                                     nodoActual.hijoIzquierdo.hijoIzquierdo,
                                     nodoActual.hijoIzquierdo.hijoDerecho)
-           else:
-             if nodoActual.esHijoIzquierdo():
-                 nodoActual.hijoDerecho.padre = nodoActual.padre
-                 nodoActual.padre.hijoIzquierdo = nodoActual.hijoDerecho
-             elif nodoActual.esHijoDerecho():
-                 nodoActual.hijoDerecho.padre = nodoActual.padre
-                 nodoActual.padre.hijoDerecho = nodoActual.hijoDerecho
-             else:
-                 nodoActual.reemplazarDatoDeNodo(nodoActual.hijoDerecho.clave,
+            else:
+                if nodoActual.esHijoIzquierdo():
+                    nodoActual.hijoDerecho.padre = nodoActual.padre
+                    nodoActual.padre.hijoIzquierdo = nodoActual.hijoDerecho
+                elif nodoActual.esHijoDerecho():
+                    nodoActual.hijoDerecho.padre = nodoActual.padre
+                    nodoActual.padre.hijoDerecho = nodoActual.hijoDerecho
+                else:
+                    nodoActual.reemplazarDatoDeNodo(nodoActual.hijoDerecho.clave,
                                     nodoActual.hijoDerecho.cargaUtil,
                                     nodoActual.hijoDerecho.hijoIzquierdo,
                                     nodoActual.hijoDerecho.hijoDerecho)
         
 class AVL(ArbolBinarioBusqueda):
+    """Implementación de un Árbol AVL."""
     def _agregar(self, clave, valor, nodoActual):
+        """
+        Precondición:
+        nodoActual debe pertenecer al árbol AVL.
+        La clave debe ser comparable con las demás claves.
+
+        Postcondición:
+        Se inserta un nuevo nodo respetando las propiedades del árbol AVL.
+        Se actualizan los factores de equilibrio necesarios.
+        """
         if clave < nodoActual.clave:
             if nodoActual.hijoIzquierdo:
                 self._agregar(clave, valor, nodoActual.hijoIzquierdo)
@@ -215,6 +463,14 @@ class AVL(ArbolBinarioBusqueda):
                 self.actualizarEquilibrio(nodoActual.hijoDerecho)
 
     def actualizarEquilibrio(self, nodo):
+        """
+        Precondición:
+        nodo debe pertenecer al árbol AVL.
+
+        Postcondición:
+        Se actualizan los factores de equilibrio desde el nodo hasta la raíz cuando corresponde.
+        Si algún nodo queda desbalanceado se ejecuta el proceso de reequilibrado.
+        """
         if nodo.factorEquilibrio > 1 or nodo.factorEquilibrio < -1:
             self.reequilibrar(nodo)
             return
@@ -227,6 +483,16 @@ class AVL(ArbolBinarioBusqueda):
                 self.actualizarEquilibrio(nodo.padre)
                     
     def rotarIzquierda(self, rotRaiz):
+        """
+        Precondición:
+
+        rotRaiz debe tener hijo derecho.
+
+        Postcondición:
+
+        Se realiza una rotación simple a la izquierda.
+        Se preserva la propiedad de árbol AVL.
+        """
         nuevaRaiz = rotRaiz.hijoDerecho
         rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
         if nuevaRaiz.hijoIzquierdo:
@@ -245,6 +511,16 @@ class AVL(ArbolBinarioBusqueda):
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
 
     def rotarDerecha(self, rotRaiz):
+            """
+            Precondición:
+
+            rotRaiz debe tener hijo izquierdo.
+
+            Postcondición:
+
+            Se realiza una rotación simple a la derecha.
+            Se preserva la propiedad de árbol AVL.
+            """
             nuevaRaiz = rotRaiz.hijoIzquierdo
             rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
             if nuevaRaiz.hijoDerecho != None:
@@ -264,6 +540,16 @@ class AVL(ArbolBinarioBusqueda):
             nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
 
     def reequilibrar(self, nodo):
+        """
+        Precondición:
+
+        El nodo debe presentar un factor de equilibrio fuera del rango [-1,1].
+
+        Postcondición:
+
+        Se ejecutan las rotaciones necesarias.
+        El subárbol queda balanceado.
+        """
         if nodo.factorEquilibrio < 0:
                 if nodo.hijoDerecho.factorEquilibrio > 0:
                     self.rotarDerecha(nodo.hijoDerecho)
@@ -281,6 +567,16 @@ class AVL(ArbolBinarioBusqueda):
 
 
 def imprimir_estructura(nodo, nivel=0, prefijo="Raíz: "):
+        """
+        Precondición:
+
+        nodo debe ser un nodo válido o None.
+
+        Postcondición:
+
+        Se muestra por pantalla la estructura jerárquica del árbol.
+        No modifica el árbol.
+        """
         """Imprime el árbol de costado para ver su forma jerárquica."""
         if nodo is not None:
             imprimir_estructura(nodo.hijoDerecho, nivel + 1, "Der: ")
