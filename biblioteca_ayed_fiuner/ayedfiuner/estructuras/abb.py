@@ -176,14 +176,18 @@ class ArbolBinarioBusqueda:
     def agregar(self, clave, valor):
         """
         Precondición:
-
-        nodoActual debe pertenecer al árbol.
-        La clave debe ser comparable.
+        La clave debe ser comparable con las demás claves del árbol.
 
         Postcondición:
+        Se inserta un nuevo nodo respetando la propiedad
+        de árbol binario de búsqueda.
+        El tamaño del árbol aumenta en una unidad.
 
-        El nuevo nodo queda insertado en la posición correspondiente.
+        Excepciones:
+        ValueError si la clave es None.
         """
+        if clave is None:
+            raise ValueError("La clave no puede ser None")
         if self.raiz:
             self._agregar(clave, valor, self.raiz)
         else:
@@ -193,23 +197,33 @@ class ArbolBinarioBusqueda:
     def _agregar(self, clave, valor, nodoActual):
         """
         Precondición:
-        nodoActual debe pertenecer al árbol AVL.
+        nodoActual debe pertenecer al árbol.
         La clave debe ser comparable con las demás claves.
 
         Postcondición:
-        Se inserta un nuevo nodo respetando las propiedades del árbol AVL.
-        Se actualizan los factores de equilibrio necesarios.
+        Se inserta un nuevo nodo respetando la propiedad
+        de árbol binario de búsqueda.
+
+        Excepciones:
+        ValueError si nodoActual o clave son None.
         """
+
+        if nodoActual is None:
+            raise ValueError("El nodo actual no puede ser None")
+
+        if clave is None:
+            raise ValueError("La clave no puede ser None")
+
         if clave < nodoActual.clave:
             if nodoActual.tieneHijoIzquierdo():
-                   self._agregar(clave, valor, nodoActual.hijoIzquierdo)
+                self._agregar(clave, valor, nodoActual.hijoIzquierdo)
             else:
-                   nodoActual.hijoIzquierdo = NodoArbol(clave, valor, padre=nodoActual)
+                nodoActual.hijoIzquierdo = NodoArbol(clave, valor, padre=nodoActual)
         else:
             if nodoActual.tieneHijoDerecho():
-                   self._agregar(clave, valor, nodoActual.hijoDerecho)
+                self._agregar(clave, valor, nodoActual.hijoDerecho)
             else:
-                   nodoActual.hijoDerecho = NodoArbol(clave, valor, padre=nodoActual)
+                nodoActual.hijoDerecho = NodoArbol(clave, valor, padre=nodoActual)
 
     def __setitem__(self, c, v):
         """
@@ -224,15 +238,18 @@ class ArbolBinarioBusqueda:
 
     def obtener(self, clave):
         """
-        Precondición:
-        
+        Precondición:        
         La clave debe ser comparable.
 
         Postcondición:
-
         Devuelve el valor asociado a la clave si existe.
-        Devuelve None si no se encuentra.
+
+        Excepciones:
+        Devuelve None si la clave no se encuentra.
         """
+        if clave is None:
+            raise ValueError("La clave no puede ser None")
+        
         if self.raiz:
             res = self._obtener(clave,self.raiz)
             if res:
@@ -245,11 +262,9 @@ class ArbolBinarioBusqueda:
     def _obtener(self, clave, nodoActual):
         """
         Precondición:
-
         nodoActual debe ser un nodo válido o None.
 
         Postcondición:
-
         Devuelve el nodo que contiene la clave buscada o None.
         """
         if not nodoActual:
@@ -280,7 +295,12 @@ class ArbolBinarioBusqueda:
         Postcondición:
         Devuelve True si la clave pertenece al árbol.
         Devuelve False en caso contrario.
+
+        Excepciones:
+        Devuelve None si la clave no se encuentra.
         """
+        if clave is None:
+            raise ValueError("La clave no puede ser None")
         if self._obtener(clave, self.raiz):
             return True
         else:
@@ -468,9 +488,14 @@ class AVL(ArbolBinarioBusqueda):
         nodo debe pertenecer al árbol AVL.
 
         Postcondición:
-        Se actualizan los factores de equilibrio desde el nodo hasta la raíz cuando corresponde.
-        Si algún nodo queda desbalanceado se ejecuta el proceso de reequilibrado.
+        Se actualizan los factores de equilibrio.
+        Si existe un desbalance se reequilibra el árbol.
+
+        Excepciones:
+        ValueError si nodo es None.
         """
+        if nodo is None:
+            raise ValueError("El nodo no puede ser None")
         if nodo.factorEquilibrio > 1 or nodo.factorEquilibrio < -1:
             self.reequilibrar(nodo)
             return
@@ -485,14 +510,21 @@ class AVL(ArbolBinarioBusqueda):
     def rotarIzquierda(self, rotRaiz):
         """
         Precondición:
-
-        rotRaiz debe tener hijo derecho.
+        rotRaiz debe existir y tener hijo derecho.
 
         Postcondición:
+        El subárbol queda rotado hacia la izquierda.
+        Se conserva la propiedad AVL.
 
-        Se realiza una rotación simple a la izquierda.
-        Se preserva la propiedad de árbol AVL.
+        Excepciones:
+        ValueError si no existe la raíz o no tiene hijo derecho.
         """
+
+        if rotRaiz is None:
+            raise ValueError("La raíz de rotación no puede ser None")
+
+        if rotRaiz.hijoDerecho is None:
+            raise ValueError("La rotación izquierda requiere un hijo derecho")
         nuevaRaiz = rotRaiz.hijoDerecho
         rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
         if nuevaRaiz.hijoIzquierdo:
@@ -511,45 +543,54 @@ class AVL(ArbolBinarioBusqueda):
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
 
     def rotarDerecha(self, rotRaiz):
-            """
-            Precondición:
+        """
+        Precondición:
+        rotRaiz debe existir y tener hijo izquierdo.
 
-            rotRaiz debe tener hijo izquierdo.
+        Postcondición:
+        El subárbol queda rotado hacia la derecha.
+        Se conserva la propiedad AVL.
 
-            Postcondición:
+        Excepciones:
+        ValueError si no existe la raíz o no tiene hijo izquierdo.
+        """
+        if rotRaiz is None:
+            raise ValueError("La raíz de rotación no puede ser None")
 
-            Se realiza una rotación simple a la derecha.
-            Se preserva la propiedad de árbol AVL.
-            """
-            nuevaRaiz = rotRaiz.hijoIzquierdo
-            rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
-            if nuevaRaiz.hijoDerecho != None:
-                nuevaRaiz.hijoDerecho.padre = rotRaiz
-            nuevaRaiz.padre = rotRaiz.padre
-            if rotRaiz.esRaiz():
-                self.raiz = nuevaRaiz
+        if rotRaiz.hijoIzquierdo is None:
+            raise ValueError("La rotación derecha requiere un hijo izquierdo")
+        nuevaRaiz = rotRaiz.hijoIzquierdo
+        rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
+        if nuevaRaiz.hijoDerecho != None:
+            nuevaRaiz.hijoDerecho.padre = rotRaiz
+        nuevaRaiz.padre = rotRaiz.padre
+        if rotRaiz.esRaiz():
+            self.raiz = nuevaRaiz
+        else:
+            if rotRaiz.esHijoDerecho():
+                    rotRaiz.padre.hijoDerecho = nuevaRaiz
             else:
-                if rotRaiz.esHijoDerecho():
-                        rotRaiz.padre.hijoDerecho = nuevaRaiz
-                else:
-                    rotRaiz.padre.hijoIzquierdo = nuevaRaiz
-            nuevaRaiz.hijoDerecho = rotRaiz
-            rotRaiz.padre = nuevaRaiz
-            rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
-            nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
-            nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
+                rotRaiz.padre.hijoIzquierdo = nuevaRaiz
+        nuevaRaiz.hijoDerecho = rotRaiz
+        rotRaiz.padre = nuevaRaiz
+        rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
+        nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
+        nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
 
     def reequilibrar(self, nodo):
         """
         Precondición:
+        nodo debe pertenecer al árbol AVL.
 
-        El nodo debe presentar un factor de equilibrio fuera del rango [-1,1].
+        Postcondición
+        El subárbol queda balanceado mediante
+        las rotaciones necesarias.
 
-        Postcondición:
-
-        Se ejecutan las rotaciones necesarias.
-        El subárbol queda balanceado.
+        Excepciones:
+        ValueError si nodo es None.
         """
+        if nodo is None:
+            raise ValueError("El nodo no puede ser None")
         if nodo.factorEquilibrio < 0:
                 if nodo.hijoDerecho.factorEquilibrio > 0:
                     self.rotarDerecha(nodo.hijoDerecho)
@@ -593,7 +634,7 @@ if __name__ == "__main__":
 
     print("--- Insertando el número 30 ---")
     arbol_test.agregar(30, "Valor 30")
-    print("RAIZ:", arbol_test.factorequilibrio)
+    print("RAIZ:", arbol_test.raiz.factorEquilibrio)
     print("\n" + "-"*30)
 
     print("--- Insertando el número 20 ---")
