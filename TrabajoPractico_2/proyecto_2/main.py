@@ -26,7 +26,7 @@ if __name__ == "__main__":
     print("La temperatura minima es de:", muestras_temperatura.min_temp_rango(fecha1,fecha2))
 
     fecha1 = "07/01/2024"
-    fecha2 = "01/04/2024"
+    fecha2 = "01/04/2025"
     print("La temperatura minima y maxima es:", muestras_temperatura.temp_extremos_rango(fecha1,fecha2))
 
     fecha = "07/01/2025"
