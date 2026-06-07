@@ -24,7 +24,7 @@ class Vertice:
 
 class Grafo:
     def __init__(self):
-        self.listaVertices = {} # Diccionario para almacenar { nombre_aldea: Objeto_Vertice }
+        self.listaVertices = {} 
     
     def agregarVertice(self, clave):
         # Crea una aldea en el mapa si aún no existía
@@ -37,7 +37,7 @@ class Grafo:
         return self.listaVertices.get(n)
 
     def agregarArista(self, de, a, costo=0):
-        # Crea la conexión (ruta de paloma) entre dos aldeas con su distancia
+        # Crea la conexión entre dos aldeas con su distancia
         if de not in self.listaVertices:
             self.agregarVertice(de)
         if a not in self.listaVertices:
@@ -49,7 +49,6 @@ class Grafo:
         return self.listaVertices.keys()
 
     def __iter__(self):
-        # Permite recorrer directamente los objetos Vértice haciendo: "for v in mi_grafo"
         return iter(self.listaVertices.values())
 
 class ColaPrioridad:
@@ -114,19 +113,13 @@ class ColaPrioridad:
         return self.tamanoActual == 0
 
 def prim(g, inicio):
-    """Aplica el algoritmo de Prim para descubrir las conexiones óptimas."""
     cp = ColaPrioridad()
-    
-    # 1. Inicializamos todas las aldeas con valores base
     for v in g:
         v.distancia = float('inf')
         v.predecesor = None
-        v.color = 'blanco'
-        
-    # 2. La aldea de origen ("Peligros") tiene distancia 0 porque el mensaje arranca ahí
+        v.color = 'blanco'   
     inicio.distancia = 0
     
-    # 3. Cargamos la cola de prioridad con pares [distancia, ObjetoVertice]
     cp.construirMonticulo([[v.distancia, v] for v in g])
     
     while not cp.estaVacia():
@@ -134,12 +127,10 @@ def prim(g, inicio):
         distActual, verticeActual = cp.eliminarMin()
         verticeActual.color = 'negro' # Se marca como integrada permanentemente a la red
         
-        # Revisamos todos sus vecinos
-        for vecino in verticeActual.obtenerConexiones():
+        for vecino in verticeActual.obtenerConexiones():# Revisamos todos sus vecinos
             if vecino.color == 'blanco':
                 costoArista = verticeActual.obtenerPonderacion(vecino)
-                # Si es más corto llegar a este vecino desde la aldea actual que desde rutas previas
-                if costoArista < vecino.distancia:
+                if costoArista < vecino.distancia:# Si es más corto llegar a este vecino desde la aldea actual que desde rutas previas
                     vecino.distancia = costoArista
                     vecino.predecesor = verticeActual # Guardamos el enlace de procedencia
                     cp.decrementarClave(vecino, costoArista)
