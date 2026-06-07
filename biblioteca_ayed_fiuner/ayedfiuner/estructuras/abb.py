@@ -2,13 +2,11 @@ class NodoArbol:
     def __init__(self, clave, valor, izquierdo = None, derecho = None, padre = None):
         """
         Precondición:
-
         clave debe ser comparable con otras claves del árbol.
         valor puede ser cualquier dato.
         Los parámetros izquierdo, derecho y padre deben ser nodos válidos o None.
         
         Postcondición:
-
         Se crea un nodo con la clave y valor indicados.
         El factor de equilibrio queda inicializado en 0.
         """
@@ -22,11 +20,9 @@ class NodoArbol:
     def tieneHijoIzquierdo(self):
         """
         Precondición:
-
         El nodo debe existir.
 
         Postcondición:
-
         Devuelve el hijo izquierdo si existe, o None en caso contrario.
         """
         return self.hijoIzquierdo
@@ -34,11 +30,9 @@ class NodoArbol:
     def tieneHijoDerecho(self):
         """
         Precondición:
-
         El nodo debe existir.
 
         Postcondición:
-
         Devuelve el hijo derecho si existe, o None en caso contrario.
         """
         return self.hijoDerecho
@@ -79,11 +73,9 @@ class NodoArbol:
     def esHoja(self):
         """
         Precondición:
-
         El nodo debe existir.
 
         Postcondición:
-
         Devuelve True si el nodo no tiene hijos.
         Devuelve False en caso contrario.
         """
@@ -92,11 +84,9 @@ class NodoArbol:
     def tieneAlgunHijo(self):
         """
         Precondición:
-
         El nodo debe existir.
 
         Postcondición:
-
         Devuelve True si posee al menos un hijo.
         """
         return self.hijoDerecho or self.hijoIzquierdo
@@ -104,11 +94,9 @@ class NodoArbol:
     def tieneAmbosHijos(self):
         """
         Precondición:
-
         El nodo debe existir.
 
         Postcondición:
-
         Devuelve True si posee hijo izquierdo y derecho.
         """
         return self.hijoDerecho and self.hijoIzquierdo
@@ -116,12 +104,10 @@ class NodoArbol:
     def reemplazarDatoDeNodo(self, clave, valor, hizq, hder):
         """
         Precondición:
-
         Los parámetros deben ser válidos.
         hizq y hder deben ser nodos o None.
 
         Postcondición:
-
         Actualiza la información almacenada en el nodo.
         Reasigna correctamente los padres de los hijos.
         """
@@ -137,11 +123,9 @@ class NodoArbol:
 class ArbolBinarioBusqueda:
     """
     Precondición:
-
     Ninguna.
 
     Postcondición:
-
     Se crea un árbol vacío.
     """
 
@@ -163,11 +147,9 @@ class ArbolBinarioBusqueda:
     def __len__(self):
         """
         Precondición:
-
         El árbol debe existir.
 
         Postcondición:
-
         Devuelve la cantidad de nodos almacenados en el árbol.
         No modifica la estructura del árbol.
         """
@@ -373,11 +355,9 @@ class ArbolBinarioBusqueda:
     def encontrarSucesor(self):
         """
         Precondición:
-
         El nodo debe pertenecer al árbol.
 
         Postcondición:
-
         Devuelve el sucesor in-order del nodo.
         Devuelve None si no existe sucesor.
         """
@@ -397,11 +377,9 @@ class ArbolBinarioBusqueda:
     def encontrarMin(self):
         """
         Precondición:
-
         El subárbol no debe estar vacío.
 
         Postcondición:
-
         Devuelve el nodo con la menor clave del subárbol.
         """
         actual = self
@@ -412,11 +390,9 @@ class ArbolBinarioBusqueda:
     def remover(self, nodoActual):
         """
         Precondición:
-
         nodoActual debe pertenecer al árbol.
 
         Postcondición:
-
         El nodo es eliminado correctamente.
         La estructura del árbol sigue siendo válida.
         """
@@ -610,11 +586,9 @@ class AVL(ArbolBinarioBusqueda):
 def imprimir_estructura(nodo, nivel=0, prefijo="Raíz: "):
         """
         Precondición:
-
         nodo debe ser un nodo válido o None.
 
         Postcondición:
-
         Se muestra por pantalla la estructura jerárquica del árbol.
         No modifica el árbol.
         """
