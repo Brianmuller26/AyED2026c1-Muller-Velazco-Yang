@@ -1,19 +1,22 @@
-import time
-import datetime
-import random
 from modules.temperatura import Temperaturas_DB 
 
-muestras_temperatura = Temperaturas_DB()
+def cargar_muestras_desde_archivo(db, ruta_archivo):
+
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        for num_linea, linea in enumerate(archivo, start=1):
+            linea = linea.strip()
+            fecha_str, temp_str = linea.split(';')
+            # Convertimos la temperatura a flotante y guardamos en la BD
+            db.guardar_temperatura(float(temp_str), fecha_str.strip())
+
+
 
 if __name__ == "__main__":
-    with open('data/muestras.txt', 'r') as archivo:
-        for linea in archivo:
-            # Ignora el prefijo si existe y limpia espacios
-            linea = linea.replace('', '').strip()
-            if linea:
-                fecha, temp = linea.split(';')
-                muestras_temperatura.guardar_temperatura(float(temp), fecha)
-    # fecha = "17/02/2025"
+    muestras_temperatura = Temperaturas_DB()
+    ruta_datos = 'data/muestras.txt'
+    cargar_muestras_desde_archivo(muestras_temperatura, ruta_datos)
+
+    fecha = "17/02/2025"
     print("Devolver temperatura: ", muestras_temperatura.devolver_temperatura(fecha))
 
     """Ingrese el rango de fecha para devolver la temp máxima entre esas fechas"""
