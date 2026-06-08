@@ -197,23 +197,78 @@ class ColaPrioridad(MonticuloBinario):
             self.vertice = vertice
             
         def get_riesgo(self):
+            """
+            Precondición:
+            El objeto debe existir.
+
+            Postcondición:
+            Devuelve la distancia asociada al vértice.
+            """
             return self.distancia
 
     def __init__(self):
+        """
+        Precondición:
+        Ninguna.
+
+        Postcondición:
+        Se crea una cola de prioridad vacía
+        utilizando la estructura de MonticuloBinario.
+        """
         super().__init__()
 
     def construirMonticulo(self, unaLista):
-        # Convertimos la lista de pares [dist, v] en nuestros items internos
+        """
+        Precondición:
+        unaLista debe ser una lista de pares
+        [distancia, vertice].
+
+        Postcondición:
+        Los elementos son transformados en objetos
+        internos _Item y organizados como un
+        montículo mínimo.
+
+        Excepciones:
+        TypeError si unaLista no es una lista.
+        """
         lista_items = [self._Item(dist, v) for dist, v in unaLista]
         super().construirMonticulo(lista_items)
 
     def eliminarMin(self):
+        """
+        Precondición:
+        El montículo no debe estar vacío.
+
+        Postcondición:
+        Se elimina y devuelve el elemento de menor
+        prioridad en formato [distancia, vertice].
+
+        Excepciones:
+        IndexError si el montículo está vacío.
+        """
         # Extraemos el item usando la lógica de la clase padre
         item_minimo = super().eliminarMin()
         # Lo devolvemos en el formato de lista [distancia, vertice]
         return [item_minimo.distancia, item_minimo.vertice]
 
     def decrementarClave(self, val, nueva_clave):
+        """
+        Precondición:
+        val debe corresponder a un vértice presente
+        en el montículo.
+        nueva_clave no debe ser None.
+
+        Postcondición:
+        Se actualiza la distancia asociada al vértice
+        y se reordena el montículo para conservar
+        la propiedad de prioridad mínima.
+
+        Excepciones:
+        ValueError si nueva_clave es None.
+        """
+        if nueva_clave is None:
+            raise ValueError("La nueva clave no puede ser None")
+
         # Buscamos el vértice dentro del montículo heredado
         for i in range(1, self.tamanoActual + 1):
             if self.listaMonticulo[i].vertice == val:
@@ -223,6 +278,14 @@ class ColaPrioridad(MonticuloBinario):
                 break
 
     def estaVacia(self):
+        """
+        Precondición:
+        La cola de prioridad debe existir.
+
+        Postcondición:
+        Devuelve True si no contiene elementos.
+        Devuelve False en caso contrario.
+        """
         return self.tamanoActual == 0
 
 
