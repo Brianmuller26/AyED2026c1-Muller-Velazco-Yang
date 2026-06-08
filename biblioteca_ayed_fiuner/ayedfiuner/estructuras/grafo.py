@@ -182,115 +182,49 @@ class Grafo:
         """
         return iter(self.listaVertices.values())
 
-class ColaPrioridad:
-    """Estructura de Montículo Mínimo que organiza las aldeas por menor distancia"""
+
+from ayedfiuner.estructuras.monticulo import MonticuloBinario
+class ColaPrioridad(MonticuloBinario):
+    """
+    Cola de Prioridad que herede de MonticuloBinario.
+    Todo el comportamiento y adaptaciones quedan encapsulados aquí dentro.
+    """
+    
+    class _Item:
+        """Contenedor interno mínimo para dar soporte a .get_riesgo()"""
+        def __init__(self, distancia, vertice):
+            self.distancia = distancia
+            self.vertice = vertice
+            
+        def get_riesgo(self):
+            return self.distancia
+
     def __init__(self):
-        self.listaMonticulo = [[0]]
-        self.tamanoActual = 0
-
-    def infiltrarArriba(self, i):
-        while i // 2 > 0:
-            if self.listaMonticulo[i][0] < self.listaMonticulo[i // 2][0]:
-                tmp = self.listaMonticulo[i // 2]
-                self.listaMonticulo[i // 2] = self.listaMonticulo[i]
-                self.listaMonticulo[i] = tmp
-            i = i // 2
-
-    def infiltrarAbajo(self, i):
-        while (i * 2) <= self.tamanoActual:
-            mc = self.hijoMin(i)
-            if self.listaMonticulo[i][0] > self.listaMonticulo[mc][0]:
-                tmp = self.listaMonticulo[i]
-                self.listaMonticulo[i] = self.listaMonticulo[mc]
-                self.listaMonticulo[mc] = tmp
-            i = mc
-
-    def hijoMin(self, i):
-        if i * 2 + 1 > self.tamanoActual:
-            return i * 2
-        else:
-            if self.listaMonticulo[i * 2][0] < self.listaMonticulo[i * 2 + 1][0]:
-                return i * 2
-            else:
-                return i * 2 + 1
-
-    def eliminarMin(self):
-        """
-        Precondición:
-        El montículo no debe estar vacío.
-
-        Postcondición:
-        Se elimina y devuelve el elemento mínimo.
-
-        Excepciones:
-        IndexError si el montículo está vacío.
-        """
-
-        if self.tamanoActual == 0:
-            raise IndexError("El montículo está vacío")
-        # Extrae de forma eficiente la aldea que se encuentra más cerca de la red actual
-        valorRetorno = self.listaMonticulo[1]
-        self.listaMonticulo[1] = self.listaMonticulo[self.tamanoActual]
-        self.tamanoActual = self.tamanoActual - 1
-        self.listaMonticulo.pop()
-        self.infiltrarAbajo(1)
-        return valorRetorno
+        super().__init__()
 
     def construirMonticulo(self, unaLista):
-        """
-        Precondición:
-        unaLista debe ser una lista válida.
+        # Convertimos la lista de pares [dist, v] en nuestros items internos
+        lista_items = [self._Item(dist, v) for dist, v in unaLista]
+        super().construirMonticulo(lista_items)
 
-        Postcondición:
-        Los elementos quedan organizados
-        como un montículo mínimo.
-
-        Excepciones:
-        TypeError si unaLista no es una lista.
-        """
-
-        if not isinstance(unaLista, list):
-            raise TypeError("Se esperaba una lista")
-        # Toma la lista inicial de aldeas y las estructura en forma de montículo
-        i = len(unaLista) // 2
-        self.tamanoActual = len(unaLista)
-        self.listaMonticulo = [[0]] + unaLista[:]
-        while i > 0:
-            self.infiltrarAbajo(i)
-            i = i - 1
+    def eliminarMin(self):
+        # Extraemos el item usando la lógica de la clase padre
+        item_minimo = super().eliminarMin()
+        # Lo devolvemos en el formato de lista [distancia, vertice]
+        return [item_minimo.distancia, item_minimo.vertice]
 
     def decrementarClave(self, val, nueva_clave):
-        """
-        Precondición:
-        val debe existir en el montículo.
-        nueva_clave no debe ser None.
-
-        Postcondición:
-        Se actualiza la prioridad del elemento.
-
-        Excepciones:
-        ValueError si nueva_clave es inválida.
-        """
-
-        if nueva_clave is None:
-            raise ValueError("La nueva clave no puede ser None")
-        # Actualiza la distancia de una aldea cuando encontramos un camino más corto hacia ella
+        # Buscamos el vértice dentro del montículo heredado
         for i in range(1, self.tamanoActual + 1):
-            if self.listaMonticulo[i][1] == val:
-                self.listaMonticulo[i][0] = nueva_clave
-                self.infiltrarArriba(i)
+            if self.listaMonticulo[i].vertice == val:
+                self.listaMonticulo[i].distancia = nueva_clave
+                # Reubicamos usando el método de MonticuloBinario
+                self.infiltArriba(i)
                 break
 
     def estaVacia(self):
-        """
-        Precondición:
-        La cola de prioridad debe existir.
-
-        Postcondición:
-        Devuelve True si la cola está vacía.
-        Devuelve False en caso contrario.
-        """
         return self.tamanoActual == 0
+
 
 def prim(g, inicio):
     """
